@@ -1,0 +1,107 @@
+    /* Global Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        ::selection {
+            background: linear-gradient(145deg, #a1ffce, #05eebb, #025240);
+            color: #003d28;
+            text-shadow: 0 0 10px rgba(86, 209, 183, 0.7);
+        }
+
+        ::-moz-selection {
+            background: linear-gradient(145deg, #a1ffce, #05eebb, #025846);
+            color: #003d28;
+            text-shadow: 0 0 10px rgba(6, 61, 49, 0.7);
+        }
+
+
+       
+        /* Global Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+        * {
+            font-family: 'Poppins';
+        }
+
+        body {
+            background-color: #f3fdf5;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+
+        ::-webkit-scrollbar {
+            width: 1px;
+            width: 100%;
+        }
+
+        /* Hide horizontal scrollbar */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+            /* Hides scrollbar in Chrome, Safari */
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            /* Hides scrollbar in IE and Edge */
+            scrollbar-width: none;
+            /* Hides scrollbar in Firefox */
+            white-space: nowrap;
+            /* Ensures items stay in a row */
+            overflow-x: auto;
+            /* Allows scrolling without showing scrollbar */
+            padding-bottom: 10px;
+            /* Prevents content from being clipped */
+        }
+
+         /* Custom Scrollbar for Webkit Browsers */
+         ::-webkit-scrollbar {
+            height: 8px;
+            /* Adjust the height for horizontal scrollbar */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #14b8a6;
+            /* Tailwind teal-400 */
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #374151;
+            /* Tailwind gray-700 */
+        }
+
+
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide-in {
+            animation: slideIn 0.3s ease-in-out;
+        }
