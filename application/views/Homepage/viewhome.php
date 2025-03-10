@@ -224,7 +224,7 @@
     </nav>
 
     <section class="home">
-        <nav class="bg-white p-4 flex justify-between items-center shadow-md">
+        <nav class="sticky top-0 z-10 bg-white p-4 flex justify-between items-center shadow-md">
             <div class="font-bold text-lg pl-10">
                 Faculty Ranking and Data Management System for Academic Excellence
             </div>

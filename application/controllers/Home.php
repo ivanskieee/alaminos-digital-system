@@ -129,6 +129,48 @@ class Home extends CI_Controller
             $categories[] = $category['file_type'];
             $categoryCounts[] = $category['count'];
         }
+        // Fetch rank distribution
+        $rankDistribution = $this->db->query("
+    SELECT rank, COUNT(id) as count 
+    FROM users 
+    GROUP BY rank
+")->result_array();
+
+        $rankLabels = [];
+        $rankCounts = [];
+        foreach ($rankDistribution as $rank) {
+            $rankLabels[] = $rank['rank'];
+            $rankCounts[] = $rank['count'];
+        }
+
+        // Fetch user points data
+        $userPointsData = $this->db->query("
+    SELECT username, points 
+    FROM users 
+    ORDER BY points DESC
+")->result_array();
+
+        $userNames = [];
+        $userPoints = [];
+        foreach ($userPointsData as $user) {
+            $userNames[] = $user['username'];
+            $userPoints[] = $user['points'];
+        }
+
+        // Fetch file submissions over time for all users
+        $facultySubmissions = $this->db->query("
+    SELECT DATE(created_at) as submission_date, COUNT(id) as count
+    FROM userrequirements
+    GROUP BY DATE(created_at)
+    ORDER BY DATE(created_at) ASC
+")->result_array();
+
+        $submissionDates = [];
+        $submissionCounts = [];
+        foreach ($facultySubmissions as $entry) {
+            $submissionDates[] = $entry['submission_date'];
+            $submissionCounts[] = $entry['count'];
+        }
 
         $data = [
             'uploaded_files' => $uploaded_files,
@@ -141,6 +183,12 @@ class Home extends CI_Controller
             'uploadCounts' => json_encode($uploads),
             'fileCategories' => json_encode($categories),
             'categoryCounts' => json_encode($categoryCounts),
+            'rankLabels' => json_encode($rankLabels),
+            'rankCounts' => json_encode($rankCounts),
+            'userNames' => json_encode($userNames),
+            'userPoints' => json_encode($userPoints),
+            'submissionDates' => json_encode($submissionDates),
+            'submissionCounts' => json_encode($submissionCounts),
         ];
 
         $this->load->view('Homepage/viewuserdashboard', $data);

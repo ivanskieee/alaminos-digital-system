@@ -159,7 +159,7 @@
                         <i class='bx bx-book icon'></i>
                         <span class="text nav-text">FACULTY MANUAL</span>
                     </a>
-                </li>
+                </li>1
                 <li class="nav-link">
                     <a href="javascript:void(0);" onclick="loadView('FacultyMemberInformation')">
                         <!-- User Information Icon: changed to user-circle -->
