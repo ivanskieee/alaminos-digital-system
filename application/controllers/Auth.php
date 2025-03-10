@@ -340,8 +340,10 @@ class Auth extends CI_Controller
     public function feedback_contact()
     {
         $admin_id = $this->session->userdata('admin_id');
+        $super_admin = $this->session->userdata('super_admin');
 
-        if (!$admin_id) {
+        // ✅ Allow Super Admin to access the dashboard
+        if (!$admin_id && !$super_admin) {
             $data['title'] = "Access Denied";
             $this->load->view('errors/admin_custom_access_denied', $data);
             return;

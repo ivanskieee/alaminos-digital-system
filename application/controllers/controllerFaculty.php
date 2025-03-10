@@ -49,6 +49,7 @@ class controllerFaculty extends CI_Controller
 
         // Fetch fellow faculty members (excluding the current user)
         $fellow_faculty_members = $this->model_faculty->getFellowFacultyMembers($user_id);
+        $progressPercentage = $this->calculateRankProgress($user['rank'] ?? 'Unspecified');
 
         // Pass the necessary data to the view
         $data['user'] = $user;
@@ -58,6 +59,7 @@ class controllerFaculty extends CI_Controller
         $data['file_submissions'] = $file_submissions;
         $data['next_rank_order'] = $next_rank_order;
         $data['fellow_faculty_members'] = $fellow_faculty_members;
+        $data['progressPercentage'] = $progressPercentage;
         $data['hasPending'] = $this->model_faculty->hasPendingSubmission($user_id);
 
 
@@ -158,6 +160,34 @@ class controllerFaculty extends CI_Controller
             default:
                 return 'Unspecified Label';
         }
+    }
+    public function calculateRankProgress($currentRank)
+    {
+        $rankOrder = [
+            'Instructor I',
+            'Instructor II',
+            'Instructor III',
+            'Assistant Professor I',
+            'Assistant Professor II',
+            'Associate Professor I',
+            'Associate Professor II',
+            'Associate Professor III',
+            'Associate Professor IV',
+            'Professor I',
+            'Professor II',
+            'Professor III'
+        ];
+
+        $totalRanks = count($rankOrder);
+        $currentRankIndex = array_search($currentRank, $rankOrder);
+
+        if ($currentRankIndex !== false) {
+            // Calculate percentage of progress (based on position in the ranking system)
+            $progressPercentage = (($currentRankIndex + 1) / $totalRanks) * 100;
+            return round($progressPercentage); // Returns a rounded value
+        }
+
+        return 0; // Default if rank is not found
     }
 
     public function submitFile()

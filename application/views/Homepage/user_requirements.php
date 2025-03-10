@@ -88,10 +88,11 @@
                 class="flex-1 darkmode bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out"
                 onsubmit="handleFileUpload(event, this)">
 
-                <label for="file_type" class="block text-sm font-medium text-gray-700 mb-2">Select File Type:</label>
+                <label for="file_type" class="darkmode_green block text-sm font-medium text-gray-700 mb-2">Select File
+                    Type:</label>
                 <div class="relative mb-4 ">
                     <select name="file_type"
-                        class="w-full border text-center border-gray-300 rounded-lg py-3 text-gray-700" required>
+                        class="w-full border text-center border-gray-300 rounded-lg py-3 text-gray-700">
                         <?php if (!empty($general_file_types)): ?>
                             <?php foreach ($general_file_types as $file): ?>
                                 <option value="<?= strtolower($file['type_name']) ?>">
@@ -106,7 +107,8 @@
 
                 </div>
 
-                <label for="requirements_file" class="block text-sm font-medium text-gray-700 mb-2">Select File:</label>
+                <label for="requirements_file"
+                    class="darkmode_green block text-sm font-medium text-gray-700 mb-2">Select File:</label>
                 <div class="relative">
                     <input type="file" name="requirements_file" id="requirements_file" accept=".pdf,.docx,.png,.jpg"
                         class="w-full opacity-0 absolute top-0 left-0 h-full cursor-pointer"
@@ -135,7 +137,8 @@
                 action="<?= base_url('conAdmin/uploadMandatoryRequirementFile') ?>" method="post"
                 enctype="multipart/form-data" onsubmit="handleFileUpload(event, this)">
 
-                <label class="block text-sm font-medium text-gray-700 mb-2">Select Mandatory Requirement:</label>
+                <label class="darkmode_green block text-sm font-medium text-gray-700 mb-2">Select Mandatory
+                    Requirement:</label>
                 <div class="relative mb-4 ">
                     <select name="file_type"
                         class="w-full border text-center border-gray-300 rounded-lg py-3 text-gray-700">
@@ -154,7 +157,7 @@
 
                 </div>
 
-                <label class="block text-sm font-medium text-gray-700 mb-2">Upload File:</label>
+                <label class="darkmode_green block text-sm font-medium text-gray-700 mb-2">Upload File:</label>
                 <div class="relative">
                     <input type="file" name="requirements" id="mandatory_requirements_file"
                         accept=".pdf,.docx,.png,.jpg"
@@ -182,7 +185,8 @@
                 action="<?= base_url('conAdmin/uploadYearlyFile') ?>" method="post" enctype="multipart/form-data"
                 onsubmit="handleFileUpload(event, this)">
 
-                <label class="block text-sm font-medium text-gray-700 mb-2">Select Yearly Requirement:</label>
+                <label class="darkmode_green block text-sm font-medium text-gray-700 mb-2">Select Yearly
+                    Requirement:</label>
                 <div class="relative mb-4">
                     <select name="file_type"
                         class="w-full border text-center border-gray-300 rounded-lg py-3 text-gray-700">
@@ -202,7 +206,7 @@
 
                 </div>
 
-                <label class="block text-sm font-medium text-gray-700 mb-2">Upload File:</label>
+                <label class="darkmode_green block text-sm font-medium text-gray-700 mb-2">Upload File:</label>
                 <div class="relative">
                     <input type="file" name="requirements" id="yearly_requirements_file" accept=".pdf,.docx,.png,.jpg"
                         class="w-full opacity-0 absolute top-0 left-0 h-full cursor-pointer"
@@ -240,7 +244,7 @@
             if (!selectedFileType) {
                 // Show error toast if file type is empty
                 Toastify({
-                    text: "⚠️ Select a File Type before uploading",
+                    text: "⚠️ select a file type/file type is empty",
                     duration: 5000,
                     gravity: "top",
                     position: "right",
@@ -278,7 +282,7 @@
                             duration: 5000,
                             gravity: "top",
                             position: "right",
-                            backgroundColor: "linear-gradient(to right, rgb(9, 98, 121), rgb(31, 206, 150))",
+                            backgroundColor: "linear-gradient(to right, rgb(0, 0, 0), rgb(31, 206, 150))",
                             stopOnFocus: true
                         }).showToast();
 
@@ -495,8 +499,7 @@
                             <?php endif; ?>
                         </p>
 
-                        <button
-                            class="bg-green-500 text-white px-3 py-1 rounded-full mt-2 text-sm font-semibold sm:w-auto">Download</button>
+
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>

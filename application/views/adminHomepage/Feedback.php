@@ -75,9 +75,10 @@
                                         </td>
                                         <td class="px-4 py-2 text-sm text-gray-500"><?= htmlspecialchars($feedback['email']); ?>
                                         </td>
-                                        <td class="px-4 py-2 text-sm text-gray-500">
+                                        <td class="px-4 py-2 text-sm text-gray-500 break-words max-w-xs overflow-hidden">
                                             <?= nl2br(htmlspecialchars($feedback['message'])); ?>
                                         </td>
+
                                         <td class="px-4 py-2 text-sm text-gray-500">
                                             <?= date('F j, Y, g:i a', strtotime($feedback['created_at'])); ?>
                                         </td>
@@ -106,7 +107,10 @@
                                 </div>
                                 <p class="text-sm text-gray-500 truncate"><strong>Email:</strong>
                                     <?= htmlspecialchars($feedback['email']); ?></p>
-                                <p class="text-sm text-gray-600"><?= nl2br(htmlspecialchars($feedback['message'])); ?></p>
+                                <p class="text-sm text-gray-600 break-words max-w-sm">
+                                    <?= nl2br(htmlspecialchars($feedback['message'])); ?>
+                                </p>
+
                                 <p class="text-xs text-gray-400">
                                     <?= date('F j, Y, g:i a', strtotime($feedback['created_at'])); ?>
                                 </p>
@@ -206,8 +210,8 @@
                 text: "This feedback will be permanently deleted.",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#d32f2f',
+                cancelButtonColor: '#f87171',
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {

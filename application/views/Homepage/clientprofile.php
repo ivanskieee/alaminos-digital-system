@@ -34,27 +34,27 @@
                 </div>
             </div>
 
-            <!-- Upload Profile Image -->
+            <!-- Profile Upload Section -->
             <div class="darkmode mt-6 w-full bg-teal-50 p-4 rounded-xl shadow">
-                <form method="post" action="<?= base_url('Home/uploadProfileImage'); ?>" enctype="multipart/form-data">
-                    <label class="block text-xs font-medium text-gray-700">Upload Profile Picture</label>
+                <label class="block text-xs font-medium text-gray-700">Upload Profile Picture</label>
 
-                    <div class="relative mt-2">
-                        <input type="file" name="profile_image" id="fileInput" class="hidden" accept="image/*">
-                        <label for="fileInput"
-                            class="cursor-pointer flex items-center justify-center w-full p-3 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 transition-all">
-                            Choose File
-                        </label>
-                    </div>
+                <div class="relative mt-2">
+                    <input type="file" name="profile_image" id="fileInput" class="hidden" accept="image/*">
+                    <label for="fileInput"
+                        class="cursor-pointer flex items-center justify-center w-full p-3 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 transition-all">
+                        Choose File
+                    </label>
+                </div>
 
-                    <p id="fileName" class="text-sm text-gray-500 mt-2 text-center">No file chosen</p>
+                <p id="fileName" class="text-sm text-gray-500 mt-2 text-center">No file chosen</p>
 
-                    <button type="submit"
-                        class="w-full mt-3 py-2 text-sm bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all">
-                        Upload
-                    </button>
-                </form>
+                <button id="uploadButton"
+                    class="w-full mt-3 py-2 text-sm bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled>
+                    Upload
+                </button>
             </div>
+
         </div>
 
         <!-- User Information Panel -->
@@ -99,7 +99,86 @@
         </div>
     </div>
 
+    <!-- Include Toastify.js -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <script>
+        document.getElementById('fileInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('fileName').textContent = file.name;
+                document.getElementById('uploadButton').disabled = false;
+
+                // Preview selected image
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('profilePreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('uploadButton').addEventListener('click', function () {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                Toastify({
+                    text: "Please select a file first.",
+                    duration: 3000,
+                    gravity: "top",
+                    backgroundColor: "linear-gradient(to right,rgb(0, 0, 0),rgb(176, 0, 0))"
+                }).showToast();
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('profile_image', fileInput.files[0]);
+
+            fetch("<?= base_url('Home/uploadProfileImage') ?>", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Update profile picture in real-time
+                        document.getElementById('profilePreview').src = data.image;
+
+                        // Show success notification
+                        Toastify({
+                            text: "Profile picture updated successfully!",
+                            duration: 3000,
+                            gravity: "top",
+                            backgroundColor: "linear-gradient(to right,rgb(0, 0, 0), #00b09b)"
+                        }).showToast();
+
+                        // Reset file input
+                        document.getElementById('fileInput').value = '';
+                        document.getElementById('fileName').textContent = 'No file chosen';
+                        document.getElementById('uploadButton').disabled = true;
+                    } else {
+                        Toastify({
+                            text: data.message,
+                            duration: 3000,
+                            gravity: "top",
+                            backgroundColor: "linear-gradient(to right,rgb(0, 0, 0),rgb(128, 0, 0))"
+                        }).showToast();
+                    }
+                })
+                .catch(error => {
+                    console.error("Upload failed:", error);
+                    Toastify({
+                        text: "An error occurred. Please try again.",
+                        duration: 3000,
+                        gravity: "top",
+                        backgroundColor: "linear-gradient(to right,rgb(0, 0, 0),rgb(128, 0, 0))"
+                    }).showToast();
+                });
+        });
+    </script>
+
+    <script>
+
         // File upload preview
         document.getElementById('fileInput').addEventListener('change', function (event) {
             const fileName = event.target.files.length > 0 ? event.target.files[0].name : "No file chosen";

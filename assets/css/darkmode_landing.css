@@ -41,7 +41,6 @@ body.dark .table tr,
 body.dark .table td,
 body.dark .table th,
 body.dark .darkmode_h1, 
-body.dark label,
 body.dark li
  {
     background-color: var(--sidebar-color) !important;

@@ -13,7 +13,7 @@
     <div class="flex flex-wrap gap-6 p-6 justify-center">
         <?php foreach ($users as $user): ?>
             <!-- User Card -->
-            <div class="bg-white shadow-xl rounded-2xl p-6 w-[500px] h-[500px] cursor-pointer flex flex-col items-center transition-all duration-300"
+            <div class="user-card bg-white shadow-xl rounded-2xl p-6 w-[500px] h-[500px] cursor-pointer flex flex-col items-center transition-all duration-300"
                 onclick="toggleDetails('user-<?= $user['id']; ?>')">
 
                 <!-- Upper Section -->
@@ -42,28 +42,28 @@
                         </div>
 
                         <!-- Additional User Information -->
-                        <div class="grid grid-cols-2 gap-2 mt-2">
-                            <div class="bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
+                        <div class="grid grid-cols-2 gap-2 mt-2 ">
+                            <div class=" darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
                                 <p class="font-medium text-gray-600">Address</p>
                                 <p class="text-gray-800"><?= htmlspecialchars($user['address']); ?></p>
                             </div>
-                            <div class="bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
+                            <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
                                 <p class="font-medium text-gray-600">Phone</p>
                                 <p class="text-gray-800"><?= htmlspecialchars($user['phoneNo']); ?></p>
                             </div>
-                            <div class="bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
+                            <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
                                 <p class="font-medium text-gray-600">Gender</p>
                                 <p class="text-gray-800"><?= htmlspecialchars($user['gender']); ?></p>
                             </div>
-                            <div class="bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
+                            <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
                                 <p class="font-medium text-gray-600">Birth Date</p>
                                 <p class="text-gray-800"><?= date("F j, Y", strtotime($user['birth_date'])); ?></p>
                             </div>
-                            <div class="bg-teal-50 p-2 rounded-lg shadow-sm text-sm col-span-2">
+                            <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm col-span-2">
                                 <p class="font-medium text-gray-600">Rank</p>
                                 <p class="text-gray-800"><?= htmlspecialchars($user['rank'] ?: 'Not Yet Assigned'); ?></p>
                             </div>
-                            <div class="bg-teal-50 p-2 rounded-lg shadow-sm text-sm col-span-2">
+                            <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm col-span-2">
                                 <p class="font-medium text-gray-600">Faculty</p>
                                 <p class="text-gray-800"><?= htmlspecialchars($user['faculty'] ?: 'Not Yet Assigned'); ?>
                                 </p>

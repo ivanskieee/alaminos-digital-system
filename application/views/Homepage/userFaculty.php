@@ -11,6 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
 
 
 </head>
@@ -94,50 +96,115 @@
         </div>
 
         <!-- Right Section (Profile & Faculty Members) -->
-        <div class="bg-white shadow-md  p-6 w-full xl:w-1/3">
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full xl:w-1/3">
             <!-- Profile Header -->
-            <div class="flex flex-col sm:flex-row items-center sm:space-x-4 border-b pb-4">
-                <img class="w-20 h-20 rounded-full border border-gray-300"
+            <div class="flex items-center space-x-4 border-b pb-4">
+                <img class="w-24 h-24 rounded-full border-4 border-gray-300 shadow-md"
                     src="<?= base_url($user['uploaded_profile_image'] ?? 'uploads/default_profiles/default_profile.avif'); ?>"
                     alt="Profile Image">
-                <div class="text-center sm:text-left mt-2 sm:mt-0">
-                    <h4 class="text-xl font-semibold text-gray-800"><?= htmlspecialchars($user['username']); ?></h4>
+                <div>
+                    <h4 class="text-xl font-bold text-gray-800"><?= htmlspecialchars($user['username']); ?></h4>
                     <p class="text-gray-600"><strong class="text-gray-800">Rank:</strong>
-                        <?= htmlspecialchars($user['rank'] ?: 'Not Yet Assigned'); ?></p>
+                        <?= htmlspecialchars($user['rank'] ?: 'Not Yet Assigned'); ?>
+                    </p>
                     <p class="text-gray-600"><strong class="text-gray-800">Faculty:</strong>
-                        <?= htmlspecialchars($user['faculty'] ?: 'Not Yet Assigned'); ?></p>
+                        <?= htmlspecialchars($user['faculty'] ?: 'Not Yet Assigned'); ?>
+                    </p>
                 </div>
             </div>
 
             <!-- Next Rank Requirements -->
-            <div class="mt-6">
-                <h3 class="text-lg font-semibold text-gray-800">Next Rank Requirements:</h3>
-                <p class="text-gray-700 mt-1"><strong class="text-gray-800">To be
-                        <?= htmlspecialchars($next_rank_order); ?>, submit:</strong></p>
-                <p class="text-gray-600"><?= htmlspecialchars($next_rank_label); ?></p>
+            <div
+                class="darkmode relative mt-6 p-6 rounded-xl shadow-xl  border-blue-500 dark:border-blue-400 overflow-hidden">
+
+                <!-- Decorative Floating Elements -->
+                <div
+                    class="absolute top-0 left-0 w-16 h-16 bg-teal-100 dark:bg-teal-700 opacity-40 rounded-full transform -translate-x-6 -translate-y-6">
+                </div>
+                <div
+                    class="absolute bottom-[-100px] right-[-40px] w-56 h-56 bg-teal-100 opacity-40 rounded-full -translate-x-6">
+                </div>
+
+
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 flex items-center uppercase">
+
+                    Next Rank Requirements
+                    <svg class="w-8 h-10 text-teal-600 dark:text-teal-400 mr-2 mt-2" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6v6m0 0l3-3m-3 3l-3-3"></path>
+                    </svg>
+                </h3>
+
+                <p class="text-gray-700 dark:text-gray-300 text-lg">
+                    <a class="text-gray-900 dark:text-white">To be <?= htmlspecialchars($next_rank_order); ?>,
+                        submit:</a>
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 italic text-md"><?= htmlspecialchars($next_rank_label); ?>
+                </p>
+
+                <!-- Animated Progress Indicator -->
+                <div class="mt-4 w-full h-3 bg-gray-300 dark:bg-gray-700 rounded-full overflow-hidden relative">
+                    <div class="h-full bg-teal-500 dark:bg-teal-400 transition-all duration-700 ease-in-out rounded-full"
+                        style="width: <?= htmlspecialchars($progressPercentage); ?>%;">
+                    </div>
+                    <!-- Progress Label -->
+
+                </div>
             </div>
+
 
             <!-- File Upload Form -->
             <form method="POST" enctype="multipart/form-data" action="<?= base_url('controllerFaculty/submitFile') ?>"
-                id="fileForm" class="mt-6">
-                <label class="block text-gray-700 font-medium mb-2" for="file">Upload File:</label>
-                <input type="file" name="file" id="file" required
-                    class="block w-full border border-gray-300 rounded-md py-2 px-4 text-gray-700 focus:ring focus:ring-blue-300"
-                    <?= $hasPending ? 'disabled' : '' ?>>
+                id="fileForm" class="mt-6 bg-white p-6 rounded-lg shadow-md border border-gray-200">
+
+                <h3 class="block text-gray-700 font-medium mb-2" for="file">Upload File:</h3>
+
+                <!-- Custom File Input Wrapper -->
+                <div class="relative w-full">
+                    <input type="file" name="file" id="file" required class="hidden" <?= $hasPending ? 'disabled' : '' ?>
+                        onchange="updateFileName(this)">
+
+                    <label for="file"
+                        class="flex items-center justify-center w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md cursor-pointer hover:bg-blue-700 transition-all duration-300 shadow-md <?= $hasPending ? 'opacity-50 cursor-not-allowed' : '' ?>">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2m-5-4l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        Choose File
+                    </label>
+
+                    <!-- File Name Display -->
+                    <p id="file-name" class="text-gray-500 text-sm mt-2 text-center italic">No file chosen</p>
+                </div>
+
+                <!-- Submit Button -->
                 <button type="submit"
-                    class="w-full bg-blue-600 text-white font-medium py-2 px-4 rounded-md mt-4 hover:bg-blue-700 transition-all duration-300"
+                    class="w-full bg-green-600 text-white font-medium py-3 px-4 rounded-md mt-4 hover:bg-green-700 transition-all duration-300 shadow-md <?= $hasPending ? 'opacity-50 cursor-not-allowed' : '' ?>"
                     <?= $hasPending ? 'disabled' : '' ?>>
                     Submit File
                 </button>
+
                 <?php if ($hasPending): ?>
                     <p class="text-red-500 text-sm mt-2">You cannot upload a new file while your previous submission is
                         still pending.</p>
                 <?php endif; ?>
             </form>
 
+            <script>function updateFileName(input) {
+                    const fileNameDisplay = document.getElementById('file-name');
+                    if (input.files.length > 0) {
+                        fileNameDisplay.textContent = `Selected: ${input.files[0].name}`;
+                    } else {
+                        fileNameDisplay.textContent = 'No file chosen';
+                    }
+                }
+            </script>
+
             <!-- Faculty Members -->
             <h1 class="text-2xl py-2 uppercase mt-6">FACULTY MEMBERS</h1>
-            <div class="faculty p-2 border rounded-lg shadow-md bg-gray-100 h-96 overflow-y-auto">
+            <div class="darkmode faculty p-2 border rounded-lg shadow-md bg-gray-100 h-96 overflow-y-auto">
                 <?php foreach ($fellow_faculty_members as $faculty_member): ?>
                     <?php if ($faculty_member['id'] != $user['id'] && $faculty_member['faculty'] === $user['faculty']): ?>
                         <div class="bg-white p-3 rounded-lg shadow mb-2">

@@ -8,14 +8,14 @@
     <title>FACULTY MEMBER STATUS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
 </head>
 
 <body class="min-h-screen bg-gray-100 text-gray-800">
     <div class="flex flex-wrap gap-2 p-3 justify-center">
         <?php foreach ($users as $user): ?>
             <!-- User Card -->
-            <div class="bg-white shadow-xl rounded-2xl p-6 w-[500px] h-[500px] cursor-pointer flex flex-col items-center transition-all duration-300"
+            <div class="user-card bg-white shadow-xl rounded-2xl p-6 w-[500px] h-[500px] cursor-pointer flex flex-col items-center transition-all duration-300"
                 onclick="toggleDetails('user-<?= $user['id']; ?>')">
 
                 <!-- Upper Section -->

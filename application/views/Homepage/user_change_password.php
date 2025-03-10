@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Change Password</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/jpg" title="Atom">
 
+    <link rel="icon" type="image/jpg" title="Atom">
 </head>
 
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<body class="">
     <!-- Container -->
-    <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-sm mx-auto">
+    <div class=" m-16 border-none p-6 w-full max-w-sm mx-auto">
         <div class="flex flex-col items-center">
             <!-- Lock Icon -->
             <div class="bg-blue-100 p-3 rounded-full">
@@ -30,6 +30,7 @@
 
         <!-- Success/Error Messages -->
         <div id="message" class="hidden p-2 rounded-md text-center text-sm font-semibold"></div>
+
 
         <!-- Password Form -->
         <form method="post" action="<?= base_url('Home/clientprofile'); ?>" onsubmit="return validatePassword()">
@@ -71,6 +72,8 @@
                             </svg>
                         </a>
                     </div>
+                    <!-- Password strength message -->
+                    <p id="strengthMessage" class="mt-2 text-sm"></p>
                 </div>
 
                 <!-- Confirm New Password -->
@@ -90,7 +93,6 @@
                         </a>
                     </div>
                 </div>
-
             </div>
 
             <!-- Submit Button -->
@@ -115,8 +117,54 @@
                 icon.innerHTML = `<path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"></path><circle cx="12" cy="12" r="3"></circle>`;
             }
         }
+    </script>
+    <script>
+        // Real-time password strength check
+        function checkPasswordStrength() {
+            const newPassword = document.getElementById('new_password').value;
+            const strengthMessage = document.getElementById('strengthMessage');
+
+            // Basic password strength check (length, digits, symbols)
+            if (newPassword.length < 6) {
+                strengthMessage.textContent = 'Password is too weak.';
+                strengthMessage.classList.add('text-teal-500');
+            } else {
+                strengthMessage.textContent = 'Password is strong.';
+                strengthMessage.classList.add('text-teal-500');
+            }
+        }
+
+        // Form submission with AJAX
+        function submitPasswordChange(event) {
+            event.preventDefault();
+
+            let formData = new FormData(document.querySelector('form'));
+
+            fetch('<?= base_url('Home/UserChangePassword') ?>', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const messageElement = document.getElementById('message');
+                    if (data.success) {
+                        messageElement.textContent = data.success;
+                        messageElement.classList.remove('hidden', 'text-red-500');
+                        messageElement.classList.add('text-green-500');
+                    } else if (data.error) {
+                        messageElement.textContent = data.error;
+                        messageElement.classList.remove('hidden', 'text-green-500');
+                        messageElement.classList.add('text-red-500');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
 
 
+        // Attach the submit handler
+        document.querySelector('form').addEventListener('submit', submitPasswordChange);
     </script>
 
 </body>

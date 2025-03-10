@@ -8,7 +8,7 @@
         href="<?php echo base_url('assets/css/adminhome.css?v=' . filemtime('assets/css/adminhome.css')); ?>">
     <link rel="stylesheet"
         href="<?php echo base_url('assets/css/darkmode_landing.css?v=' . filemtime('assets/css/darkmode_landing.css')); ?>">
-    <title>ADMIN PANEL</title>
+    <title>SUPER ADMIN PANEL</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -17,9 +17,7 @@
     <!-- Flatpickr Initialization -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <link rel="icon"
-        href="https://up.yimg.com/ib/th?id=OIP.LyQMxucs0UiwtrvJeT44MQHaFg&pid=Api&rs=1&c=1&qlt=95&w=145&h=108"
-        type="image/jpg" title="Atom">
+    <link rel="icon" type="image/png" href="<?= base_url('uploads/page_icon/RANKINGsystemicon.jpg') ?>">
     <!-- BOXICONS-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -131,7 +129,7 @@
                     <a href="javascript:void(0);" onclick="loadView('approveAdmin')">
                         <!--  Icon: changed to a house -->
                         <i class='bx bx-home-circle icon'></i>
-                        <span class="text nav-text truncate">MANAGE ADMIN ACCOUNTS</span>
+                        <span class="text nav-text truncate">MANAGE ACCOUNTS</span>
                     </a>
                 </li>
 

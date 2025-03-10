@@ -23,6 +23,15 @@ class controllerSuperAdmin extends CI_Controller
 
     public function index()
     {
+        $admin_id = $this->session->userdata('admin_id');
+        $super_admin = $this->session->userdata('super_admin');
+
+        // ✅ Allow Super Admin to access the dashboard
+        if (!$admin_id && !$super_admin) {
+            $data['title'] = "Access Denied";
+            $this->load->view('errors/admin_custom_access_denied', $data);
+            return;
+        }
 
         $data['pending_admins'] = $this->model_superadmin->getPendingAdmins();
         $data['approved_admins'] = $this->model_superadmin->getAdminsByStatus('approved');

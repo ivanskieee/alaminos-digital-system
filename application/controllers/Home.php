@@ -184,7 +184,8 @@ class Home extends CI_Controller
     public function updateUserInfo()
     {
         if (!$this->session->has_userdata('user_id')) {
-            redirect(base_url('auth'));
+            echo json_encode(['error' => 'Access Denied']);
+            return;
         }
 
         $user_id = $this->session->userdata('user_id'); // Get the current user's ID
@@ -197,7 +198,7 @@ class Home extends CI_Controller
         $this->form_validation->set_rules('phoneNo', 'Phone Number', 'required|numeric|trim');
         $this->form_validation->set_rules('address', 'Address', 'trim');
         $this->form_validation->set_rules('gender', 'Gender', 'required'); // Add gender validation
-        $this->form_validation->set_rules('birth_date', 'Birthdate', 'required'); // Add birthdate validation
+        $this->form_validation->set_rules('birth_date', 'Birthdate', 'required|callback_check_age'); // Add age validation
 
         if ($this->form_validation->run()) {
             // Data to be updated
@@ -212,16 +213,31 @@ class Home extends CI_Controller
 
             // Update user information
             if ($this->auth_model->updateUser($user_id, $update_data)) {
-                $this->session->set_flashdata('success', 'Profile updated successfully.');
+                echo json_encode(['success' => 'Profile updated successfully.']);
             } else {
-                $this->session->set_flashdata('error', 'Failed to update profile.');
+                echo json_encode(['error' => 'Failed to update profile.']);
             }
         } else {
-            $this->session->set_flashdata('error', validation_errors());
+            // Return validation errors
+            echo json_encode(['error' => validation_errors()]);
         }
-
-        redirect(base_url('Home/userChangeUserInformation'));
     }
+
+    // Age validation callback function
+    public function check_age($birth_date)
+    {
+        $birth_date = new DateTime($birth_date);
+        $today = new DateTime();
+        $age = $today->diff($birth_date)->y;
+
+        if ($age < 18) {
+            $this->form_validation->set_message('check_age', 'You must be at least 18 years old.');
+            return false;
+        }
+        return true;
+    }
+
+
 
     public function userChangeUserInformation()
     {
@@ -304,56 +320,45 @@ class Home extends CI_Controller
         $user_id = $this->session->userdata('user_id');
 
         if (!$user_id) {
-            $data['title'] = "Access Denied";
-            $this->load->view('errors/custom_access_denied', $data);
-            return;  // 🛑 Stop execution if not logged in
+            echo json_encode(['error' => 'Access Denied']);
+            return;
         }
 
-        $user_id = $this->session->userdata('user_id'); // Fetch user ID
-
-        // Handle password change request
         if ($this->input->post('change_password')) {
-            $this->changePassword($user_id);
+            $response = $this->changePassword($user_id);
+            echo json_encode($response);  // Send response back as JSON
+            return;
         }
 
-        $data['user'] = $this->auth_model->getUserById($user_id); // Fetch user data
+        $data['user'] = $this->auth_model->getUserById($user_id);
         $this->load->view('Homepage/user_change_password', $data);
     }
 
     public function changePassword($user_id)
     {
-
         $this->load->library('form_validation');
 
-        // Set validation rules
         $this->form_validation->set_rules('current_password', 'Current Password', 'required');
         $this->form_validation->set_rules('new_password', 'New Password', 'required|min_length[6]');
         $this->form_validation->set_rules('confirm_new_password', 'Confirm New Password', 'required|matches[new_password]');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('error', validation_errors());
+            return ['error' => strip_tags(validation_errors())]; // Strip tags to remove <p> tags
         } else {
-            // Fetch user data
             $user = $this->auth_model->getUserById($user_id);
 
-            // Verify current password
             if (!password_verify($this->input->post('current_password'), $user['password'])) {
-                $this->session->set_flashdata('error', 'Incorrect current password.');
-                redirect(base_url('Home/'));
-                return;
+                return ['error' => 'Incorrect current password.'];
             }
 
-            // Hash new password
             $new_password_hashed = password_hash($this->input->post('new_password'), PASSWORD_BCRYPT);
-
-            // Update password in database
             $this->auth_model->updateUser($user_id, ['password' => $new_password_hashed]);
 
-            $this->session->set_flashdata('success', 'Password updated successfully.');
+            return ['success' => 'Password updated successfully.'];
         }
-
-        redirect(base_url('Home/'));
     }
+
+
 
 
     public function updateProfile($user_id)
@@ -402,25 +407,25 @@ class Home extends CI_Controller
 
         // Upload configuration
         $config['upload_path'] = './uploads/profile_images';
-        $config['allowed_types'] = '*';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
         $config['max_size'] = 10240;
         $config['file_name'] = uniqid();
 
         $this->upload->initialize($config);
 
+
         if ($this->upload->do_upload('profile_image')) {
             $upload_data = $this->upload->data();
+            $image_path = 'uploads/profile_images/' . $upload_data['file_name'];
 
             // Save image path in the database
-            $image_path = 'uploads/profile_images/' . $upload_data['file_name'];
             $this->auth_model->updateUser($user_id, ['uploaded_profile_image' => $image_path]);
 
-            $this->session->set_flashdata('success', 'Profile image updated successfully.');
+            // Return JSON response
+            echo json_encode(['status' => 'success', 'message' => 'Profile image updated successfully.', 'image' => base_url($image_path)]);
         } else {
-            $this->session->set_flashdata('error', $this->upload->display_errors());
+            echo json_encode(['status' => 'error', 'message' => $this->upload->display_errors()]);
         }
-
-        redirect(base_url('Home'));
     }
 
     //! USER TASK

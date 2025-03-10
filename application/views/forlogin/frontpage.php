@@ -66,13 +66,20 @@
     <section
         class="hero min-h-screen flex items-center justify-center text-center bg-gradient-to-r from-teal-700 to-teal-900 text-white px-6 fade-in">
         <div>
-            <h1 class="text-4xl md:text-5xl font-bold">Welcome to Our System</h1>
+            <h1 class="text-4xl md:text-5xl font-bold uppercase ">Welcome to <h1
+                    class="text-4xl md:text-5xl font-bold uppercase custom-text-stroke text-transparent ">
+                    Ranking System</h1>
+            </h1>
             <p class="text-lg md:text-2xl my-4">Experience seamless and efficient management</p>
             <button id="get-features"
                 class="bg-yellow-400 text-teal-900 font-bold py-3 px-6 rounded-full hover:bg-yellow-500 transition">
                 Explore Features
             </button>
-
+            <style>
+                .custom-text-stroke {
+                    -webkit-text-stroke: 2px white;
+                }
+            </style>
         </div>
     </section>
 

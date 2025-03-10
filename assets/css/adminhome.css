@@ -444,10 +444,11 @@ background-color: #66cdaa;
         width: calc(100% - 50px);
     }
 
-    .sidebar.close~.home {
-        left: -0;
-        width: 100%;
+    .sidebar.close ~ .home {
+        left: -40px;
+        width: calc(100% + 40px);
     }
+    
 
     .sidebar.close .image-text {
         display: none;

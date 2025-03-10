@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -193,7 +195,7 @@
                                     $progress = min($progress, 100); // Ensure it doesn’t exceed 100%
                                     ?>
                                     <div class="w-full bg-gray-200 rounded-md h-2">
-                                        <div class="bg-blue-500 h-full rounded-md transition-all duration-300"
+                                        <div class="bg-teal-500 h-full rounded-md transition-all duration-300"
                                             style="width: <?= $progress; ?>%;"></div>
                                     </div>
                                     <div class="text-gray-500 mt-1 text-xs"><?= $progress; ?>% Complete</div>

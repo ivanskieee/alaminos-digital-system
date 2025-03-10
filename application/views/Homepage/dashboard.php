@@ -46,7 +46,7 @@ foreach ($ranks as $rank) {
         <!-- Dashboard Stats -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
             <!-- Total Users -->
-            <div class="bg-white shadow-md rounded-lg h-72 p-3 flex flex-col items-center cursor-pointer hover:shadow-lg transition duration-300"
+            <div class="bg-white shadow-md rounded-lg h-96 p-3 flex flex-col items-center cursor-pointer hover:shadow-lg transition duration-300"
                 onclick="confirmAction('userInfo')">
                 <h2 class="text-sm font-bold text-green-500">Total Users</h2>
                 <p class="text-xl font-semibold text-green-900"><?php echo count($users); ?></p>
@@ -54,17 +54,17 @@ foreach ($ranks as $rank) {
             </div>
 
             <!-- Weekly Tracker -->
-            <div class="bg-white shadow-md rounded-lg p-3 h-72">
+            <div class="bg-white shadow-md rounded-lg p-3 h-96">
                 <h2 class="text-sm font-semibold text-gray-700 mb-3">Weekly Tracker</h2>
                 <canvas id="weeklyLineChart"></canvas>
             </div>
 
             <!-- User Gender Distribution -->
-            <div class="bg-white shadow-md rounded-lg p-3 h-72 flex flex-col items-center">
+            <div class="bg-white shadow-md rounded-lg p-3 h-96 flex flex-col items-center">
                 <h2 class="text-sm font-bold text-gray-500">User Gender Distribution</h2>
                 <canvas id="genderChart"></canvas>
             </div>
-            <div class="bg-white shadow-md rounded-lg p-3 flex h-72 flex-col items-center">
+            <div class="bg-white shadow-md rounded-lg p-3 flex h-96 flex-col items-center">
                 <h2 class="text-sm font-bold text-gray-500">User Approval Breakdown</h2>
                 <canvas id="sunburstChart"></canvas>
             </div>
@@ -99,14 +99,14 @@ foreach ($ranks as $rank) {
                 <p class="text-xl font-semibold text-blue-500"><?php echo $totalUploaded; ?></p>
                 <canvas id="uploadedFilesChart"></canvas>
             </div> -->
-            <div class="bg-white shadow-md h-[350px] rounded-lg p-3 flex flex-col items-center">
+            <div class="bg-white shadow-md h-[500px] rounded-lg p-3 flex flex-col items-center">
                 <h2 class="text-sm font-bold text-gray-500">Users vs Admins</h2>
                 <canvas id="usersAdminsChart"></canvas>
             </div>
 
 
             <!-- Daily File Uploads -->
-            <div class="bg-white shadow-md h-[350px] rounded-lg p-3 flex flex-col items-center">
+            <div class="bg-white shadow-md h-[500px] rounded-lg p-3 flex flex-col items-center">
                 <h2 class="text-sm font-bold text-gray-500">Daily File Uploads</h2>
                 <canvas id="dailyUploadsChart"></canvas>
             </div>
