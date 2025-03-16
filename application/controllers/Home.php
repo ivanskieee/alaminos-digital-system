@@ -305,6 +305,32 @@ class Home extends CI_Controller
 
         $this->load->view('Homepage/user_change_personalInfo', $data);
     }
+    public function toggleHideField()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+        $field = $input['field'];
+        $user_id = $input['user_id'];
+
+        // Kunin ang kasalukuyang hidden fields ng user
+        $user = $this->db->get_where('users', ['id' => $user_id])->row_array();
+        $hidden_fields = json_decode($user['hidden_fields'], true) ?? [];
+
+        // I-toggle ang field
+        if (in_array($field, $hidden_fields)) {
+            $hidden_fields = array_diff($hidden_fields, [$field]); // Remove from hidden
+        } else {
+            $hidden_fields[] = $field; // Add to hidden
+        }
+
+        // I-update ang database
+        $this->db->where('id', $user_id);
+        $this->db->update('users', ['hidden_fields' => json_encode($hidden_fields)]);
+
+        echo json_encode([
+            'status' => 'success',
+            'is_hidden' => in_array($field, $hidden_fields),
+        ]);
+    }
 
 
     public function UserFacultyMemberInformation()

@@ -53,7 +53,7 @@ class conAdmin extends CI_Controller
 
     public function AuditLogs()
     {
-          $admin_id = $this->session->userdata('admin_id');
+        $admin_id = $this->session->userdata('admin_id');
         $super_admin = $this->session->userdata('super_admin');
 
         // ✅ Allow Super Admin to access the dashboard

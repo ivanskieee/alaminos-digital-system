@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Approve Admin Accounts</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -19,38 +19,42 @@
         </div>
     </div>
 
-    <div class="max-w-6xl mx-auto space-y-8">
+    <div class="flex flex-wrap">
         <!-- Pending Admins -->
-        <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex-1 m-2 h-screen bg-white shadow-lg rounded-lg p-6">
             <h2 class="text-2xl font-bold text-gray-700 mb-4">Pending Admins</h2>
-
             <!-- Table View (Hidden on 2xl and below) -->
             <div class="max-2xl:hidden">
-                <table class="w-full border-collapse border border-gray-200 rounded-lg">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-4 py-2 text-left">Username</th>
-                            <th class="px-4 py-2 text-left">Email</th>
-                            <th class="px-4 py-2 text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($pending_admins as $admin): ?>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="px-4 py-3"><?= htmlspecialchars($admin['username']) ?></td>
-                                <td class="px-4 py-3"><?= htmlspecialchars($admin['email']) ?></td>
-                                <td class="px-4 py-3 text-center">
-                                    <button onclick="approveAdmin(<?= $admin['admin_id'] ?>)"
-                                        class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">Approve</button>
-                                    <button onclick="rejectAdmin(<?= $admin['admin_id'] ?>)"
-                                        class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md">Reject</button>
-                                </td>
+                <div class="overflow-y-auto max-h-[calc(100vh-150px)]">
+                    <table class="min-w-full border-collapse divide-y divide-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Username</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Email</th>
+                                <th class="px-4 py-2 text-center text-sm font-semibold text-gray-600">Action</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="bg-white">
+                            <?php foreach ($pending_admins as $admin): ?>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="px-4 py-3 text-gray-800"><?= htmlspecialchars($admin['username']) ?></td>
+                                    <td class="px-4 py-3 text-gray-800"><?= htmlspecialchars($admin['email']) ?></td>
+                                    <td class="px-4 py-3 text-center">
+                                        <button onclick="approveAdmin(<?= $admin['admin_id'] ?>)"
+                                            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition">
+                                            Approve
+                                        </button>
+                                        <button onclick="rejectAdmin(<?= $admin['admin_id'] ?>)"
+                                            class="ml-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition">
+                                            Reject
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
             <!-- Card View for 2xl and below -->
             <div class="2xl:hidden space-y-4">
                 <?php foreach ($pending_admins as $admin): ?>
@@ -59,9 +63,13 @@
                         <p class="text-sm text-gray-500"><?= htmlspecialchars($admin['email']) ?></p>
                         <div class="mt-3 flex space-x-3">
                             <button onclick="approveAdmin(<?= $admin['admin_id'] ?>)"
-                                class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md">Approve</button>
+                                class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md transition">
+                                Approve
+                            </button>
                             <button onclick="rejectAdmin(<?= $admin['admin_id'] ?>)"
-                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md">Reject</button>
+                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md transition">
+                                Reject
+                            </button>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -69,36 +77,36 @@
         </div>
 
         <!-- Approved Admins -->
-        <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex-1 m-2 h-screen bg-white shadow-lg rounded-lg p-6">
             <h2 class="text-2xl font-bold text-gray-700 mb-4">Approved Admins</h2>
-
             <!-- Table View (Hidden on 2xl and below) -->
             <div class="max-2xl:hidden">
-                <table class="w-full border-collapse border border-gray-200 rounded-lg">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-4 py-2 text-left">Username</th>
-                            <th class="px-4 py-2 text-left">Email</th>
-                            <th class="px-4 py-2 text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($approved_admins as $admin): ?>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="px-4 py-3"><?= htmlspecialchars($admin['username']) ?></td>
-                                <td class="px-4 py-3"><?= htmlspecialchars($admin['email']) ?></td>
-                                <td class="px-4 py-3 text-center">
-                                    <button onclick="AdminmoveToPending(<?= $admin['admin_id'] ?>)"
-                                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md">
-                                        Move to Pending
-                                    </button>
-                                </td>
+                <div class="overflow-y-auto max-h-[calc(100vh-150px)]">
+                    <table class="min-w-full border-collapse divide-y divide-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Username</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Email</th>
+                                <th class="px-4 py-2 text-center text-sm font-semibold text-gray-600">Action</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="bg-white">
+                            <?php foreach ($approved_admins as $admin): ?>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="px-4 py-3 text-gray-800"><?= htmlspecialchars($admin['username']) ?></td>
+                                    <td class="px-4 py-3 text-gray-800"><?= htmlspecialchars($admin['email']) ?></td>
+                                    <td class="px-4 py-3 text-center">
+                                        <button onclick="AdminmoveToPending(<?= $admin['admin_id'] ?>)"
+                                            class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition">
+                                            Move to Pending
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
             <!-- Card View for 2xl and below -->
             <div class="2xl:hidden space-y-4">
                 <?php foreach ($approved_admins as $admin): ?>
@@ -107,7 +115,7 @@
                         <p class="text-sm text-gray-500"><?= htmlspecialchars($admin['email']) ?></p>
                         <div class="mt-3">
                             <button onclick="AdminmoveToPending(<?= $admin['admin_id'] ?>)"
-                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md">
+                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md transition">
                                 Move to Pending
                             </button>
                         </div>
@@ -117,36 +125,36 @@
         </div>
 
         <!-- Rejected Admins -->
-        <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex-1 m-2 h-screen bg-white shadow-lg rounded-lg p-6">
             <h2 class="text-2xl font-bold text-gray-700 mb-4">Rejected Admins</h2>
-
             <!-- Table View (Hidden on 2xl and below) -->
             <div class="max-2xl:hidden">
-                <table class="w-full border-collapse border border-gray-200 rounded-lg">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-4 py-2 text-left">Username</th>
-                            <th class="px-4 py-2 text-left">Email</th>
-                            <th class="px-4 py-2 text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($rejected_admins as $admin): ?>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="px-4 py-3"><?= htmlspecialchars($admin['username']) ?></td>
-                                <td class="px-4 py-3"><?= htmlspecialchars($admin['email']) ?></td>
-                                <td class="px-4 py-3 text-center">
-                                    <button onclick="AdminmoveToPending(<?= $admin['admin_id'] ?>)"
-                                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md">
-                                        Move to Pending
-                                    </button>
-                                </td>
+                <div class="overflow-y-auto max-h-[calc(100vh-150px)]">
+                    <table class="min-w-full border-collapse divide-y divide-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Username</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Email</th>
+                                <th class="px-4 py-2 text-center text-sm font-semibold text-gray-600">Action</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="bg-white">
+                            <?php foreach ($rejected_admins as $admin): ?>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="px-4 py-3 text-gray-800"><?= htmlspecialchars($admin['username']) ?></td>
+                                    <td class="px-4 py-3 text-gray-800"><?= htmlspecialchars($admin['email']) ?></td>
+                                    <td class="px-4 py-3 text-center">
+                                        <button onclick="AdminmoveToPending(<?= $admin['admin_id'] ?>)"
+                                            class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition">
+                                            Move to Pending
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
             <!-- Card View for 2xl and below -->
             <div class="2xl:hidden space-y-4">
                 <?php foreach ($rejected_admins as $admin): ?>
@@ -155,7 +163,7 @@
                         <p class="text-sm text-gray-500"><?= htmlspecialchars($admin['email']) ?></p>
                         <div class="mt-3">
                             <button onclick="AdminmoveToPending(<?= $admin['admin_id'] ?>)"
-                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md">
+                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md transition">
                                 Move to Pending
                             </button>
                         </div>
@@ -164,6 +172,7 @@
             </div>
         </div>
     </div>
+
     <script>
         function AdminmoveToPending(adminId) {
             $.post("<?= base_url('Auth/Admin_move_to_pending') ?>", { admin_id: adminId }, function () {
@@ -177,11 +186,9 @@
         function showLoading() {
             document.getElementById("loadingScreen").classList.remove("hidden");
         }
-
         function hideLoading() {
             document.getElementById("loadingScreen").classList.add("hidden");
         }
-
         function approveAdmin(adminId) {
             Swal.fire({
                 title: 'Approve Admin?',
@@ -204,13 +211,10 @@
                         .fail(function () {
                             Swal.fire('Error!', 'There was an error approving the admin.', 'error');
                         })
-                        .always(function () {
-                            hideLoading();
-                        });
+                        .always(hideLoading);
                 }
             });
         }
-
         function rejectAdmin(adminId) {
             Swal.fire({
                 title: 'Reject Admin?',
@@ -233,9 +237,7 @@
                         .fail(function () {
                             Swal.fire('Error!', 'There was an error rejecting the admin.', 'error');
                         })
-                        .always(function () {
-                            hideLoading();
-                        });
+                        .always(hideLoading);
                 }
             });
         }

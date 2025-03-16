@@ -574,12 +574,12 @@
                                         <td class="p-3 border">₱10,000</td>
                                     </tr>
                                     <tr class="bg-gray-50 hover:bg-gray-100">
-                                        <td class="p-3 border">80 - 89</td>
-                                        <td class="p-3 border">₱5,000</td>
+                                        <td class="bg-white p-3 border">80 - 89</td>
+                                        <td class="bg-white p-3 border">₱5,000</td>
                                     </tr>
                                     <tr class="bg-gray-50 hover:bg-gray-100">
-                                        <td class="p-3 border">70 - 79</td>
-                                        <td class="p-3 border">₱3,000</td>
+                                        <td class="bg-white p-3 border">70 - 79</td>
+                                        <td class="bg-white p-3 border">₱3,000</td>
                                     </tr>
                                 </tbody>
                             </table>

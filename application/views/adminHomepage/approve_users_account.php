@@ -10,12 +10,12 @@
 </head>
 
 <body class="bg-gray-100 font-sans">
-    <div class="p-4 max-w-full mx-auto">
+    <div class="flex flex-wrap">
 
         <!-- Pending Users Section -->
-        <div class=" bg-white shadow-lg rounded-lg p-6 mb-2">
+        <div class=" flex-1 m-2 h-screen bg-white shadow-lg rounded-lg p-6 mb-2">
             <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">Pending Users</h2>
-            <div class=" space-y-4 overflow-y-auto h-96">
+            <div class=" space-y-4 overflow-y-auto h-[900px]">
                 <?php foreach ($pending_users as $user): ?>
                     <div
                         class="user-approval flex flex-wrap items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
@@ -36,9 +36,9 @@
 
 
         <!-- Approved Users Section -->
-        <div class="bg-white shadow-lg rounded-lg p-6 mb-2">
+        <div class="flex-1 m-2 h-screen bg-white shadow-lg rounded-lg p-6 mb-2">
             <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">ACTIVE ACCOUNTS</h2>
-            <div class="space-y-4 overflow-y-auto h-96">
+            <div class="space-y-4 overflow-y-auto h-[900px]">
 
                 <?php foreach ($approved_users as $user): ?>
                     <div
@@ -56,9 +56,9 @@
         </div>
 
         <!-- Rejected Users Section -->
-        <div class="bg-white shadow-lg rounded-lg p-6 mb-2">
+        <div class="flex-1 m-2 h-screen bg-white shadow-lg rounded-lg p-6 mb-2">
             <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">DEACTIVE ACCOUNTS</h2>
-            <div class="space-y-4 overflow-y-auto h-96">
+            <div class="space-y-4 overflow-y-auto h-[900px]">
 
                 <?php foreach ($rejected_users as $user): ?>
                     <div

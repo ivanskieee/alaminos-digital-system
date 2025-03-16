@@ -25,12 +25,6 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <style>
-    .grid div:hover {
-        cursor: pointer;
-        transform: scale(1.05);
-        transition: transform 0.2s ease-in-out;
-    }
-
     #notificationDropdown {
         width: 48rem;
         height: 500px;
@@ -44,8 +38,7 @@
         <header>
             <div class="image-text">
                 <span class="image">
-                    <img src="https://up.yimg.com/ib/th?id=OIP.LyQMxucs0UiwtrvJeT44MQHaFg&pid=Api&rs=1&c=1&qlt=95&w=145&h=108"
-                        alt="logo">
+                    <img src="<?= base_url('uploads/page_icon/RANKINGsystemicon.jpg'); ?>" alt="Menu Icon" ">
                 </span>
 
                 <script>
@@ -71,12 +64,14 @@
                                 noResultsMessage = document.createElement('div');
                                 noResultsMessage.id = 'no-results';
                                 noResultsMessage.innerHTML = `
-                    <div class="flex flex-col items-center bg-white/20 backdrop-blur-md text-red-500 px-8 py-6 rounded-2xl shadow-lg animate-fadeIn scale-95">
-                        <p class="fas fa-search text-red-500 text-6xl animate-bounce mb-2"></p>
-                        <p class="text-lg text-red-500 font-semibold">No results found</p>
-                    </div>
-                `;
-                                noResultsMessage.className = "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300";
+                    <div class=" flex flex-col items-center bg-white/20 backdrop-blur-md text-red-500 px-8 py-6
+                        rounded-2xl shadow-lg animate-fadeIn scale-95">
+                    <p class="fas fa-search text-red-500 text-6xl animate-bounce mb-2"></p>
+                    <p class="text-lg text-red-500 font-semibold">No results found</p>
+            </div>
+            `;
+                                noResultsMessage.className = "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+                                transition - all duration - 300";
                                 document.body.appendChild(noResultsMessage);
                             }
                         } else {
@@ -87,31 +82,31 @@
                     }
                 </script>
 
-                <style>
-                    @keyframes fadeIn {
-                        from {
-                            opacity: 0;
-                            transform: scale(0.9);
-                        }
-
-                        to {
-                            opacity: 1;
-                            transform: scale(1);
-                        }
+            <style>
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: scale(0.9);
                     }
 
-                    .animate-fadeIn {
-                        animation: fadeIn 0.3s ease-in-out;
+                    to {
+                        opacity: 1;
+                        transform: scale(1);
                     }
-                </style>
+                }
+
+                .animate-fadeIn {
+                    animation: fadeIn 0.3s ease-in-out;
+                }
+            </style>
 
 
 
-                <div class="text header-text">
-                    <span class="name">
-                        <?php echo isset($admin->username) ? htmlspecialchars($admin->username) : 'Admin'; ?></span>
-                    <span class="profession">ADMIN HR</span>
-                </div>
+            <div class="text header-text">
+                <span class="name">
+                    <?php echo isset($admin->username) ? htmlspecialchars($admin->username) : 'Admin'; ?></span>
+                <span class="profession">ADMIN HR</span>
+            </div>
             </div>
             <i class='bx bx-chevron-right toggle'></i>
         </header>
@@ -159,7 +154,7 @@
                         <i class='bx bx-book icon'></i>
                         <span class="text nav-text">FACULTY MANUAL</span>
                     </a>
-                </li>1
+                </li>
                 <li class="nav-link">
                     <a href="javascript:void(0);" onclick="loadView('FacultyMemberInformation')">
                         <!-- User Information Icon: changed to user-circle -->
@@ -192,7 +187,7 @@
                 <li class="nav-link">
                     <a href="javascript:void(0);" onclick="loadView('userUploadedTasks')">
                         <i class='bx bx-cloud-upload icon'></i>
-                        <span class="text nav-text">TASK/FACULTY</span>
+                        <span class="text nav-text">RANK CONFIRMATION</span>
                     </a>
                 </li>
                 <li class="nav-link">
@@ -293,8 +288,10 @@
                     <a id="menuButton"
                         class="flex items-center space-x-2 text-gray-700 hover:text-green-700 focus:outline-none cursor-pointer"
                         onclick="toggleMenu()">
-                        <i class="bx bx-dots-vertical text-2xl"></i>
+                        <img src="<?= base_url('uploads/page_icon/RANKINGsystemicon.jpg'); ?>" alt="Menu Icon"
+                            class="w-8 h-8 rounded-full">
                     </a>
+
 
                     <div id="menuDropdown"
                         class="hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10 border">
@@ -325,6 +322,7 @@
                 </div>
             </div>
         </nav>
+
 
         <script>
             // Toggle Notifications Dropdown

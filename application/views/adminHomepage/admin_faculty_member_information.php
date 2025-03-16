@@ -15,15 +15,15 @@
     <div class="flex flex-wrap gap-2 p-3 justify-center">
         <?php foreach ($users as $user): ?>
             <!-- User Card -->
-            <div class="user-card bg-white shadow-xl rounded-2xl p-6 w-[500px] h-[500px] cursor-pointer flex flex-col items-center transition-all duration-300"
+            <div class="flex-1 user-card bg-white shadow-xl rounded-lg  min-w-[400px] h-[500px] cursor-pointer flex flex-col items-center transition-all duration-300"
                 onclick="toggleDetails('user-<?= $user['id']; ?>')">
 
                 <!-- Upper Section -->
                 <div id="profile-section-<?= $user['id']; ?>"
-                    class="flex flex-col items-center justify-center flex-grow transition-all duration-300">
+                    class="flex flex-col items-center justify-center flex-grow transition-all duration-300 ">
                     <!-- Profile Image -->
                     <img id="image-<?= $user['id']; ?>"
-                        class="w-96 h-96 rounded-full border-4 border-teal-500 shadow-md transition-all duration-300"
+                        class="w-screen h-96  rounded-t-lg rounded-b-none  transition-all duration-300 mb-1.5"
                         src="<?= base_url($user['uploaded_profile_image'] ?? 'uploads/default_profiles/default_profile.avif'); ?>"
                         alt="Profile Image">
 
@@ -34,14 +34,8 @@
                 <!-- Hidden Details -->
                 <div id="user-<?= $user['id']; ?>"
                     class="mt-4 invisible opacity-0 h-0 overflow-hidden transition-all duration-300 w-full">
-                    <div class="overflow-y-auto max-h-[200px] px-4">
-                        <h3 class="text-sm font-semibold text-gray-600">Approval Progress</h3>
-                        <div class="relative w-full bg-gray-300 rounded-full h-4 mt-2">
-                            <div class="bg-teal-500 h-4 rounded-full text-xs text-white text-center leading-4"
-                                style="width: <?= $user['progress'] ?? 0; ?>%;">
-                                <?= round($user['progress'] ?? 0, 2); ?>%
-                            </div>
-                        </div>
+                    <div class="overflow-y-auto max-h-[280px] px-4">
+
 
                         <!-- Additional User Information -->
                         <div class="grid grid-cols-2 gap-2 mt-2">

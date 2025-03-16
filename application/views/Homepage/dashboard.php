@@ -26,11 +26,11 @@ foreach ($ranks as $rank) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet"
-        href="<?php echo base_url('assets/css/dashboard.css?v=' . filemtime('assets/css/dashboard.css')); ?>">
+
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+
 
 </head>
 <style>
@@ -46,25 +46,127 @@ foreach ($ranks as $rank) {
         <!-- Dashboard Stats -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
             <!-- Total Users -->
-            <div class="bg-white shadow-md rounded-lg h-96 p-3 flex flex-col items-center cursor-pointer hover:shadow-lg transition duration-300"
+            <div class="bg-white shadow-md rounded-lg h-96 p-3 flex flex-col items-center cursor-pointer hover:shadow-lg transition duration-300 relative"
                 onclick="confirmAction('userInfo')">
+
+                <div class="relative w-full">
+                    <!-- Vertical Ellipsis Button -->
+                    <button onclick="toggleEllipsisDashboard(this)"
+                        class="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+                        &#8942;
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
+                        <button onclick="goToPage('?view=userInfo')"
+                            class="block w-full border-b text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Go to Page
+                        </button>
+                        <button onclick="downloadChart(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Download Chart as img
+                        </button>
+                        <button onclick="exportAsPDF(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Export as PDF
+                        </button>
+
+                    </div>
+                </div>
+
                 <h2 class="text-sm font-bold text-green-500">Total Users</h2>
                 <p class="text-xl font-semibold text-green-900"><?php echo count($users); ?></p>
                 <canvas id="totalUsersChart"></canvas>
             </div>
 
+
             <!-- Weekly Tracker -->
             <div class="bg-white shadow-md rounded-lg p-3 h-96">
+                <div class="relative w-full">
+                    <!-- Vertical Ellipsis Button -->
+                    <button onclick="toggleEllipsisDashboard(this)"
+                        class="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+                        &#8942;
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
+                        <button onclick="goToPage('?view=userFiles')"
+                            class="block w-full border-b text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Go to Page
+                        </button>
+                        <button onclick="downloadChart(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Download Chart as img
+                        </button>
+                        <button onclick="exportAsPDF(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Export as PDF
+                        </button>
+
+                    </div>
+                </div>
                 <h2 class="text-sm font-semibold text-gray-700 mb-3">Weekly Tracker</h2>
                 <canvas id="weeklyLineChart"></canvas>
             </div>
 
             <!-- User Gender Distribution -->
             <div class="bg-white shadow-md rounded-lg p-3 h-96 flex flex-col items-center">
+
+
+                <div class="relative w-full">
+                    <!-- Vertical Ellipsis Button -->
+                    <button onclick="toggleEllipsisDashboard(this)"
+                        class="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+                        &#8942;
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
+                        <button onclick="goToPage('?view=FacultyMemberInformation')"
+                            class="block w-full border-b text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Go to Page
+                        </button>
+                        <button onclick="downloadChart(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Download Chart as img
+                        </button>
+                        <button onclick="exportAsPDF(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Export as PDF
+                        </button>
+                    </div>
+                </div>
                 <h2 class="text-sm font-bold text-gray-500">User Gender Distribution</h2>
                 <canvas id="genderChart"></canvas>
             </div>
             <div class="bg-white shadow-md rounded-lg p-3 flex h-96 flex-col items-center">
+
+
+                <div class="relative w-full">
+                    <!-- Vertical Ellipsis Button -->
+                    <button onclick="toggleEllipsisDashboard(this)"
+                        class="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+                        &#8942;
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
+                        <button onclick="goToPage('?view=manage_user')"
+                            class="block w-full border-b text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Go to Page
+                        </button>
+                        <button onclick="downloadChart(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Download Chart as img
+                        </button>
+                        <button onclick="exportAsPDF(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Export as PDF
+                        </button>
+                    </div>
+                </div>
+
                 <h2 class="text-sm font-bold text-gray-500">User Approval Breakdown</h2>
                 <canvas id="sunburstChart"></canvas>
             </div>
@@ -75,6 +177,29 @@ foreach ($ranks as $rank) {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
             <!-- Users Position -->
             <div class="bg-white shadow-md h-[450px] rounded-lg p-3 flex flex-col items-center">
+                <div class="relative w-full">
+                    <!-- Vertical Ellipsis Button -->
+                    <button onclick="toggleEllipsisDashboard(this)"
+                        class="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+                        &#8942;
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
+                        <button onclick="goToPage('?view=userUploadedTasks')"
+                            class="block w-full border-b text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Go to Page
+                        </button>
+                        <button onclick="downloadChart(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Download Chart as img
+                        </button>
+                        <button onclick="exportAsPDF(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Export as PDF
+                        </button>
+                    </div>
+                </div>
                 <h2 class="text-sm font-bold text-gray-500">Users Position</h2>
                 <canvas id="userPositionChart"></canvas>
             </div>
@@ -82,7 +207,29 @@ foreach ($ranks as $rank) {
 
             <!-- File Status Overview (Set Height to 450px) -->
             <div class="bg-white h-[450px] shadow-md rounded-lg p-3 flex flex-col items-center">
+                <div class="relative w-full">
+                    <!-- Vertical Ellipsis Button -->
+                    <button onclick="toggleEllipsisDashboard(this)"
+                        class="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+                        &#8942;
+                    </button>
 
+                    <!-- Dropdown Menu -->
+                    <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
+                        <button onclick="goToPage('?view=userFiles')"
+                            class="block w-full border-b text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Go to Page
+                        </button>
+                        <button onclick="downloadChart(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Download Chart as img
+                        </button>
+                        <button onclick="exportAsPDF(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Export as PDF
+                        </button>
+                    </div>
+                </div>
                 <h2 class="text-sm font-bold text-gray-500">File Status Overview</h2>
                 <canvas id="fileStatusChart"></canvas>
             </div>
@@ -100,6 +247,27 @@ foreach ($ranks as $rank) {
                 <canvas id="uploadedFilesChart"></canvas>
             </div> -->
             <div class="bg-white shadow-md h-[500px] rounded-lg p-3 flex flex-col items-center">
+
+                <div class="relative w-full">
+                    <!-- Vertical Ellipsis Button -->
+                    <button onclick="toggleEllipsisDashboard(this)"
+                        class="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+                        &#8942;
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
+
+                        <button onclick="downloadChart(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Download Chart as img
+                        </button>
+                        <button onclick="exportAsPDF(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Export as PDF
+                        </button>
+                    </div>
+                </div>
                 <h2 class="text-sm font-bold text-gray-500">Users vs Admins</h2>
                 <canvas id="usersAdminsChart"></canvas>
             </div>
@@ -107,6 +275,31 @@ foreach ($ranks as $rank) {
 
             <!-- Daily File Uploads -->
             <div class="bg-white shadow-md h-[500px] rounded-lg p-3 flex flex-col items-center">
+
+                <div class="relative w-full">
+                    <!-- Vertical Ellipsis Button -->
+                    <button onclick="toggleEllipsisDashboard(this)"
+                        class="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+                        &#8942;
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
+                        <button onclick="goToPage('?view=userFiles')"
+                            class="block w-full border-b text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Go to Page
+                        </button>
+                        <button onclick="downloadChart(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Download Chart as img
+                        </button>
+                        <button onclick="exportAsPDF(this)"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Export as PDF
+                        </button>
+                    </div>
+                </div>
+
                 <h2 class="text-sm font-bold text-gray-500">Daily File Uploads</h2>
                 <canvas id="dailyUploadsChart"></canvas>
             </div>
@@ -115,6 +308,27 @@ foreach ($ranks as $rank) {
     </div>
     <!-- User Progress Table -->
     <div class="bg-white shadow-md rounded-lg p-3 mb-4 mx-3">
+        <div class="relative w-full">
+            <!-- Vertical Ellipsis Button -->
+            <button onclick="toggleEllipsisDashboard(this)"
+                class="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+                &#8942;
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
+
+                <button onclick="downloadChart(this)"
+                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Download Chart as img
+                </button>
+                <button onclick="exportAsPDF(this)"
+                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Export as PDF
+                </button>
+            </div>
+        </div>
+
         <h2 class="text-sm font-semibold text-gray-700 mb-3">All Users Progress</h2>
         <div id="progress_table" class="overflow-y-auto">
 
@@ -155,7 +369,103 @@ foreach ($ranks as $rank) {
 
 
 
+    <script>
 
+        // Toggle dropdown menu visibility
+        function toggleEllipsisDashboard(button) {
+            let menu = button.nextElementSibling;
+            let allMenus = document.querySelectorAll('.hidden');
+
+            // Close all other dropdowns
+            allMenus.forEach(m => {
+                if (m !== menu) m.classList.add('hidden');
+            });
+
+            // Toggle current menu
+            menu.classList.toggle('hidden');
+        }
+
+        // Navigate to the user page
+        function goToPage(page) {
+            window.location.href = "<?php echo base_url('conAdmin/'); ?>" + page;
+        }
+
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (event) {
+            let menus = document.querySelectorAll('.hidden');
+            menus.forEach(menu => {
+                if (!menu.parentElement.contains(event.target)) {
+                    menu.classList.add('hidden');
+                }
+            });
+        });
+        // Function to download the chart
+        function downloadChart(button) {
+            // Hanapin ang canvas na nasa parehong div
+            let canvas = button.closest('.relative').parentElement.querySelector('canvas');
+
+            if (!canvas) {
+                alert("No chart found!");
+                return;
+            }
+
+            // Convert canvas to data URL
+            let image = canvas.toDataURL("image/png");
+
+            // Create a download link
+            let link = document.createElement('a');
+            link.href = image;
+            link.download = canvas.id + ".png"; // Gamitin ang ID ng canvas bilang filename
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+
+
+        function exportAsPDF(button) {
+            // Hanapin ang canvas o table na nasa parehong div
+            let parentDiv = button.closest('.relative').parentElement;
+            let canvas = parentDiv.querySelector('canvas');
+            let table = parentDiv.querySelector('table');
+
+            // Create a new window for the printable content
+            let printWindow = window.open('', '', 'width=800,height=600');
+
+            // Add basic styles
+            printWindow.document.write('<html><head><title>Export PDF</title>');
+            printWindow.document.write('<style>');
+            printWindow.document.write('body { font-family: Arial, sans-serif; text-align: center; }');
+            printWindow.document.write('canvas { max-width: 100%; height: auto; }');
+            printWindow.document.write('table { border-collapse: collapse; width: 100%; margin-top: 20px; }');
+            printWindow.document.write('th, td { border: 1px solid black; padding: 8px; text-align: left; }');
+            printWindow.document.write('</style></head><body>');
+
+            // Add content based on what is found
+            if (canvas) {
+                let image = canvas.toDataURL("image/png");
+                printWindow.document.write('<h2>Chart Export</h2>');
+                printWindow.document.write('<img src="' + image + '" style="max-width: 100%;">');
+            } else if (table) {
+                printWindow.document.write('<h2>Data Export</h2>');
+                printWindow.document.write(table.outerHTML);
+            } else {
+                printWindow.document.write('<h2>No content available for export</h2>');
+            }
+
+            // Close document
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+
+            // Wait for the content to load before printing
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 500);
+        }
+
+    </script>
 
     <script>
         new Chart(document.getElementById('usersAdminsChart'), {

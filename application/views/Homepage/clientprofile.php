@@ -57,47 +57,190 @@
 
         </div>
 
-        <!-- User Information Panel -->
+        <?php
+        $hidden_fields = json_decode($user['hidden_fields'], true) ?? [];
+        ?>
         <div class="w-2/3 bg-white shadow-xl rounded-2xl p-6 flex flex-col">
             <h3 class="text-xl font-semibold text-gray-800 mb-4">User Information</h3>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="darkmode bg-teal-50 p-4 rounded-lg shadow-sm text-sm">
+            <!-- Additional User Information -->
+            <div class="grid grid-cols-2 gap-2 mt-2">
+                <!-- Address -->
+                <?php
+                $hidden_fields = json_decode($user['hidden_fields'], true) ?? [];
+                $addressHidden = in_array('address', $hidden_fields);
+                $addressText = htmlspecialchars($user['address']);
+                ?>
+                <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm relative">
                     <p class="font-medium text-gray-600">Address</p>
-                    <p class="text-gray-800"><?= htmlspecialchars($user['address']); ?></p>
+                    <p id="address-<?= $user['id']; ?>" class="text-gray-800" data-original="<?= $addressText; ?>">
+                        <?= $addressText; ?>
+                    </p>
+                    <!-- Hidden Info Message -->
+                    <p id="address-hidden-msg-<?= $user['id']; ?>"
+                        class="absolute bottom-0 right-0 text-xs text-gray-500 <?php echo $addressHidden ? '' : 'hidden'; ?>">
+                        This info is hidden to public
+                    </p>
+                    <a id="toggle-button-address-<?= $user['id']; ?>"
+                        onclick="toggleHide('address', <?= $user['id']; ?>)"
+                        class="absolute top-2 right-2 cursor-pointer  text-red-500 text-sm">
+                        <?= $addressHidden ? "Show" : "Hide"; ?>
+                    </a>
                 </div>
-                <div class="darkmode bg-teal-50 p-4 rounded-lg shadow-sm text-sm">
+
+                <!-- Phone -->
+                <?php
+                $phoneHidden = in_array('phone', $hidden_fields);
+                $phoneText = htmlspecialchars($user['phoneNo']);
+                ?>
+                <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm relative">
                     <p class="font-medium text-gray-600">Phone</p>
-                    <p class="text-gray-800"><?= htmlspecialchars($user['phoneNo']); ?></p>
+                    <p id="phone-<?= $user['id']; ?>" class="text-gray-800" data-original="<?= $phoneText; ?>">
+                        <?= $phoneText; ?>
+                    </p>
+                    <!-- Hidden Info Message -->
+                    <p id="phone-hidden-msg-<?= $user['id']; ?>"
+                        class="absolute bottom-0 right-0 text-xs text-gray-500 <?php echo $phoneHidden ? '' : 'hidden'; ?>">
+                        This info is hidden to public
+                    </p>
+                    <a id="toggle-button-phone-<?= $user['id']; ?>" onclick="toggleHide('phone', <?= $user['id']; ?>)"
+                        class="absolute top-2 right-2 cursor-pointer  text-red-500 text-sm">
+                        <?= $phoneHidden ? "Show" : "Hide"; ?>
+                    </a>
                 </div>
-                <div class="darkmode bg-teal-50 p-4 rounded-lg shadow-sm text-sm">
+
+                <!-- Gender -->
+                <?php
+                $genderHidden = in_array('gender', $hidden_fields);
+                $genderText = htmlspecialchars($user['gender']);
+                ?>
+                <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm relative">
                     <p class="font-medium text-gray-600">Gender</p>
-                    <p class="text-gray-800"><?= htmlspecialchars($user['gender']); ?></p>
+                    <p id="gender-<?= $user['id']; ?>" class="text-gray-800" data-original="<?= $genderText; ?>">
+                        <?= $genderText; ?>
+                    </p>
+                    <!-- Hidden Info Message -->
+                    <p id="gender-hidden-msg-<?= $user['id']; ?>"
+                        class="absolute bottom-0 right-0 text-xs text-gray-500 <?php echo $genderHidden ? '' : 'hidden'; ?>">
+                        This info is hidden to public
+                    </p>
+                    <a id="toggle-button-gender-<?= $user['id']; ?>" onclick="toggleHide('gender', <?= $user['id']; ?>)"
+                        class="absolute top-2 right-2 cursor-pointer  text-red-500 text-sm">
+                        <?= $genderHidden ? "Show" : "Hide"; ?>
+                    </a>
                 </div>
-                <div class="darkmode bg-teal-50 p-4 rounded-lg shadow-sm text-sm">
+
+                <!-- Birth Date -->
+                <?php
+                $birthHidden = in_array('birth_date', $hidden_fields);
+                $birthText = date("F j, Y", strtotime($user['birth_date']));
+                ?>
+                <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm relative">
                     <p class="font-medium text-gray-600">Birth Date</p>
-                    <p class="text-gray-800"><?= date("F j, Y", strtotime($user['birth_date'])); ?></p>
+                    <p id="birth_date-<?= $user['id']; ?>" class="text-gray-800" data-original="<?= $birthText; ?>">
+                        <?= $birthText; ?>
+                    </p>
+                    <!-- Hidden Info Message -->
+                    <p id="birth_date-hidden-msg-<?= $user['id']; ?>"
+                        class="absolute bottom-0 right-0 text-xs text-gray-500 <?php echo $birthHidden ? '' : 'hidden'; ?>">
+                        This info is hidden to public
+                    </p>
+                    <a id="toggle-button-birth_date-<?= $user['id']; ?>"
+                        onclick="toggleHide('birth_date', <?= $user['id']; ?>)"
+                        class="absolute top-2 right-2 cursor-pointer  text-red-500 text-sm">
+                        <?= $birthHidden ? "Show" : "Hide"; ?>
+                    </a>
                 </div>
-                <div class="darkmode bg-teal-50 p-4 rounded-lg shadow-sm text-sm col-span-2">
+
+                <!-- Rank -->
+                <?php
+                $rankHidden = in_array('rank', $hidden_fields);
+                $rankText = htmlspecialchars($user['rank'] ?: 'Not Yet Assigned');
+                ?>
+                <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm col-span-2 relative">
                     <p class="font-medium text-gray-600">Rank</p>
-                    <p class="text-gray-800"><?= htmlspecialchars($user['rank'] ?: 'Not Yet Assigned'); ?></p>
+                    <p id="rank-<?= $user['id']; ?>" class="text-gray-800" data-original="<?= $rankText; ?>">
+                        <?= $rankText; ?>
+                    </p>
+                    <!-- Hidden Info Message -->
+                    <p id="rank-hidden-msg-<?= $user['id']; ?>"
+                        class="absolute bottom-0 right-0 text-xs text-gray-500 <?php echo $rankHidden ? '' : 'hidden'; ?>">
+                        This info is hidden to public
+                    </p>
+                    <a id="toggle-button-rank-<?= $user['id']; ?>" onclick="toggleHide('rank', <?= $user['id']; ?>)"
+                        class="absolute top-2 right-2 cursor-pointer  text-red-500 text-sm">
+                        <?= $rankHidden ? "Show" : "Hide"; ?>
+                    </a>
                 </div>
-                <div class="darkmode bg-teal-50 p-4 rounded-lg shadow-sm text-sm col-span-2">
+
+                <!-- Faculty -->
+                <?php
+                $facultyHidden = in_array('faculty', $hidden_fields);
+                $facultyText = htmlspecialchars($user['faculty'] ?: 'Not Yet Assigned');
+                ?>
+                <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm col-span-2 relative">
                     <p class="font-medium text-gray-600">Faculty</p>
-                    <p class="text-gray-800"><?= htmlspecialchars($user['faculty'] ?: 'Not Yet Assigned'); ?></p>
+                    <p id="faculty-<?= $user['id']; ?>" class="text-gray-800" data-original="<?= $facultyText; ?>">
+                        <?= $facultyText; ?>
+                    </p>
+                    <!-- Hidden Info Message -->
+                    <p id="faculty-hidden-msg-<?= $user['id']; ?>"
+                        class="absolute bottom-0 right-0 text-xs text-gray-500 <?php echo $facultyHidden ? '' : 'hidden'; ?>">
+                        This info is hidden to public
+                    </p>
+                    <a id="toggle-button-faculty-<?= $user['id']; ?>"
+                        onclick="toggleHide('faculty', <?= $user['id']; ?>)"
+                        class="absolute top-2 right-2 cursor-pointer  text-red-500 text-sm">
+                        <?= $facultyHidden ? "Show" : "Hide"; ?>
+                    </a>
                 </div>
             </div>
+
+
         </div>
+
     </div>
+    <script>
+        function toggleHide(field, userId) {
+            fetch("<?= base_url('Home/toggleHideField'); ?>", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ field: field, user_id: userId }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        // Get the hidden message element by ID
+                        let msgElement = document.getElementById(`${field}-hidden-msg-${userId}`);
+                        // Get the toggle button element by ID
+                        let btnElement = document.getElementById(`toggle-button-${field}-${userId}`);
+                        if (data.is_hidden) {
+                            msgElement.classList.remove("hidden");
+                            btnElement.textContent = "Show";
+                        } else {
+                            msgElement.classList.add("hidden");
+                            btnElement.textContent = "Hide";
+                        }
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+
+    </script>
 
     <!-- Image Modal -->
     <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-25 flex justify-center items-center hidden">
         <div class="bg-white p-4 rounded-lg shadow-lg relative w-auto max-w-3xl">
-            <button class="absolute top-2 right-2 text-gray-700 hover:text-red-500 text-2xl" onclick="closeModal()">
+            <button class="absolute top-2 right-2  text-gray-700 hover:text-red-500 text-2xl" onclick="closeModal()">
                 &times;
             </button>
             <img id="modalImage" class="max-w-full max-h-[80vh] rounded-lg shadow-md" src="" alt="Full Image">
         </div>
     </div>
+
+
 
     <!-- Include Toastify.js -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

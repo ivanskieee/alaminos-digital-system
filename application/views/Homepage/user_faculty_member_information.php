@@ -13,15 +13,15 @@
     <div class="flex flex-wrap gap-6 p-6 justify-center">
         <?php foreach ($users as $user): ?>
             <!-- User Card -->
-            <div class="user-card bg-white shadow-xl rounded-2xl p-6 w-[500px] h-[500px] cursor-pointer flex flex-col items-center transition-all duration-300"
+            <div class="flex-1 user-card bg-white shadow-xl rounded-lg  min-w-[400px] h-[500px] cursor-pointer flex flex-col items-center transition-all duration-300"
                 onclick="toggleDetails('user-<?= $user['id']; ?>')">
 
                 <!-- Upper Section -->
                 <div id="profile-section-<?= $user['id']; ?>"
-                    class="flex flex-col items-center justify-center flex-grow transition-all duration-300">
+                    class="flex flex-col items-center justify-center flex-grow transition-all duration-300 ">
                     <!-- Profile Image -->
                     <img id="image-<?= $user['id']; ?>"
-                        class="w-96 h-96 rounded-full border-4 border-teal-500 shadow-md transition-all duration-300"
+                        class="w-screen h-96  rounded-t-lg rounded-b-none  transition-all duration-300 mb-1.5"
                         src="<?= base_url($user['uploaded_profile_image'] ?? 'uploads/default_profiles/default_profile.avif'); ?>"
                         alt="Profile Image">
 
@@ -32,43 +32,80 @@
                 <!-- Hidden Details -->
                 <div id="user-<?= $user['id']; ?>"
                     class="mt-4 invisible opacity-0 h-0 overflow-hidden transition-all duration-300 w-full">
-                    <div class="overflow-y-auto max-h-[200px] px-4">
-                        <h3 class="text-sm font-semibold text-gray-600">Approval Progress</h3>
-                        <div class="relative w-full bg-gray-300 rounded-full h-4 mt-2">
-                            <div class="bg-teal-500 h-4 rounded-full text-xs text-white text-center leading-4"
-                                style="width: <?= $user['progress'] ?? 0; ?>%;">
-                                <?= round($user['progress'] ?? 0, 2); ?>%
-                            </div>
-                        </div>
+                    <div class="overflow-y-auto max-h-[280px] px-4">
+
 
                         <!-- Additional User Information -->
-                        <div class="grid grid-cols-2 gap-2 mt-2 ">
-                            <div class=" darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
+                        <div class="grid grid-cols-2 gap-2 mt-2">
+                            <!-- Address -->
+                            <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
                                 <p class="font-medium text-gray-600">Address</p>
-                                <p class="text-gray-800"><?= htmlspecialchars($user['address']); ?></p>
+                                <?php
+                                $hidden_fields = json_decode($user['hidden_fields'], true) ?? [];
+                                $address_hidden = in_array('address', $hidden_fields);
+                                ?>
+                                <p id="address-<?= $user['id']; ?>" class="my-1 text-gray-800">
+                                    <?= $address_hidden ? 'Hidden info' : htmlspecialchars($user['address']); ?>
+                                </p>
                             </div>
+
+                            <!-- Phone -->
                             <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
                                 <p class="font-medium text-gray-600">Phone</p>
-                                <p class="text-gray-800"><?= htmlspecialchars($user['phoneNo']); ?></p>
+                                <?php
+                                $phone_hidden = in_array('phone', $hidden_fields);
+                                ?>
+                                <p id="phone-<?= $user['id']; ?>" class="my-1 text-gray-800">
+                                    <?= $phone_hidden ? 'Hidden info' : htmlspecialchars($user['phoneNo']); ?>
+                                </p>
                             </div>
+
+                            <!-- Gender -->
                             <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
                                 <p class="font-medium text-gray-600">Gender</p>
-                                <p class="text-gray-800"><?= htmlspecialchars($user['gender']); ?></p>
+                                <?php
+                                $gender_hidden = in_array('gender', $hidden_fields);
+                                ?>
+                                <p id="gender-<?= $user['id']; ?>" class="my-1 text-gray-800">
+                                    <?= $gender_hidden ? 'Hidden info' : htmlspecialchars($user['gender']); ?>
+                                </p>
                             </div>
+
+                            <!-- Birth Date -->
                             <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm">
                                 <p class="font-medium text-gray-600">Birth Date</p>
-                                <p class="text-gray-800"><?= date("F j, Y", strtotime($user['birth_date'])); ?></p>
+                                <?php
+                                $birthdate_hidden = in_array('birth_date', $hidden_fields);
+                                ?>
+                                <p id="birth_date-<?= $user['id']; ?>" class="my-1 text-gray-800">
+                                    <?= $birthdate_hidden ? 'Hidden info' : date("F j, Y", strtotime($user['birth_date'])); ?>
+                                </p>
                             </div>
+
+                            <!-- Rank -->
                             <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm col-span-2">
                                 <p class="font-medium text-gray-600">Rank</p>
-                                <p class="text-gray-800"><?= htmlspecialchars($user['rank'] ?: 'Not Yet Assigned'); ?></p>
+                                <?php
+                                $rank_hidden = in_array('rank', $hidden_fields);
+                                ?>
+                                <p id="rank-<?= $user['id']; ?>" class="my-1 text-gray-800">
+                                    <?= $rank_hidden ? 'Hidden info' : htmlspecialchars($user['rank'] ?: 'Not Yet Assigned'); ?>
+                                </p>
                             </div>
+
+                            <!-- Faculty -->
                             <div class="darkmode bg-teal-50 p-2 rounded-lg shadow-sm text-sm col-span-2">
                                 <p class="font-medium text-gray-600">Faculty</p>
-                                <p class="text-gray-800"><?= htmlspecialchars($user['faculty'] ?: 'Not Yet Assigned'); ?>
+                                <?php
+                                $faculty_hidden = in_array('faculty', $hidden_fields);
+                                ?>
+                                <p id="faculty-<?= $user['id']; ?>" class="my-1 text-gray-800">
+                                    <?= $faculty_hidden ? 'Hidden info' : htmlspecialchars($user['faculty'] ?: 'Not Yet Assigned'); ?>
                                 </p>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>

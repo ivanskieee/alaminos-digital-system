@@ -279,7 +279,7 @@
                                             </button>
                                         </td>
 
-                                        <td class="px-1 text-xs py-4">
+                                        <td class="px-1 text-xs py-4 flex">
                                             <?php if ($file['status'] !== 'approved' && $file['status'] !== 'denied'): ?>
                                                 <button onclick="updateFileStatus(<?= $file['id'] ?>, 'approved')"
                                                     class="ml-2 text-green-600 hover:text-green-800">
