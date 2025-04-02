@@ -22,19 +22,24 @@ class Home extends CI_Controller
         $username = '';
 
         // Check if the user is logged in
+        // Check if the user is logged in
         if ($this->session->has_userdata('user_id')) {
-            // Retrieve the username from the session
-            $username = $this->session->userdata('username');
-        }
+            $user_id = $this->session->userdata('user_id');
+            $user = $this->auth_model->getUserById($user_id);
 
+            // If user is not found in the database, show Access Denied page
+            if (!$user) {
+                $data['title'] = "Access Denied";
+                $this->load->view('errors/custom_access_denied', $data);
+                return;
+            }
 
-        $user_id = $this->session->userdata('user_id');
-
-        // Ensure user ID is available
-        if (!$user_id) {
+            $username = $user['username'] ?? 'Guest';
+        } else {
+            // Redirect or deny access if no session is found
             $data['title'] = "Access Denied";
             $this->load->view('errors/custom_access_denied', $data);
-            return;  // 🛑 Stop execution if not logged in
+            return;
         }
         // Fetch notifications for rank up
         $notifications_rankup = $this->model_faculty->getNotificationsByUser($user_id);

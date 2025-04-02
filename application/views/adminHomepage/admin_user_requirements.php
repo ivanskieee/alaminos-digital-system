@@ -103,7 +103,7 @@
 
                     <div>
                         <label
-                            class="block px-2 text-left text-sm font-semibold text-black uppercase tracking-wider">Category</label>
+                            class="darkmode_green block px-2 text-left text-sm font-semibold text-black uppercase tracking-wider">Category</label>
                         <select name="category"
                             class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 ">
                             <option value="General">General</option>
@@ -114,7 +114,7 @@
 
                     <div>
                         <label
-                            class="block px-2 text-left text-sm font-semibold text-black uppercase tracking-wider">File
+                            class="darkmode_green block px-2 text-left text-sm font-semibold text-black uppercase tracking-wider">File
                             Type Name</label>
                         <input type="text" name="type_name" required
                             class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300">
@@ -122,7 +122,7 @@
 
                     <div>
                         <label
-                            class="block px-2 text-left text-sm font-semibold text-black uppercase tracking-wider">Points</label>
+                            class="darkmode_green block px-2 text-left text-sm font-semibold text-black uppercase tracking-wider">Points</label>
                         <input type="number" name="points" required
                             class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300">
                     </div>

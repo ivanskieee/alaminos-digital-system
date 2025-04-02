@@ -40,7 +40,9 @@
 
         <!-- 🔴 Title -->
         <h1 class="text-4xl font-extrabold text-red-500 mb-4 uppercase tracking-widest">Access Denied</h1>
-        <p class="text-gray-300 mb-6">You are not logged in or your session has expired.</p>
+        <p class="text-gray-300 ">You are not logged in or your session has expired.</p>
+        <p class="text-red-300 mb-6">Logout other localhost server account!</p>
+
 
         <!-- 🔄 Animated Neon Glassmorphism Button -->
         <a href="<?php echo base_url('auth'); ?>"

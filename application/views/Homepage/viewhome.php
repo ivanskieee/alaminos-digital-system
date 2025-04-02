@@ -54,7 +54,10 @@
                         <?php echo $username; ?>
                     </span>
 
-                    <span class="profession"><?= htmlspecialchars($user['rank']); ?></span>
+                    <span class="profession">
+                        <?= isset($user['rank']) ? htmlspecialchars($user['rank']) : 'Unranked'; ?>
+                    </span>
+
 
                 </div>
             </div>
