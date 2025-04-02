@@ -13,9 +13,9 @@
     <div class="flex flex-wrap">
 
         <!-- Pending Users Section -->
-        <div class=" flex-1 m-2 h-screen bg-white shadow-lg rounded-lg p-6 mb-2">
+        <div class=" flex-1 m-2 h-screen overflow-y-auto bg-white shadow-lg rounded-lg p-6 mb-2">
             <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">Pending Users</h2>
-            <div class=" space-y-4 overflow-y-auto h-[900px]">
+            <div class=" space-y-4 ">
                 <?php foreach ($pending_users as $user): ?>
                     <div
                         class="user-approval flex flex-wrap items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
@@ -36,9 +36,13 @@
 
 
         <!-- Approved Users Section -->
-        <div class="flex-1 m-2 h-screen bg-white shadow-lg rounded-lg p-6 mb-2">
-            <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">ACTIVE ACCOUNTS</h2>
-            <div class="space-y-4 overflow-y-auto h-[900px]">
+        <div class="flex-1 m-2 h-screen overflow-y-auto bg-white shadow-lg rounded-lg">
+            <div class="sticky top-0 bg-white z-10 p-5 flex justify-center">
+
+            <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4  ">ACTIVE ACCOUNTS</h2>
+            </div>
+
+            <div class="space-y-4 ">
 
                 <?php foreach ($approved_users as $user): ?>
                     <div
@@ -48,7 +52,7 @@
                             <p class="text-sm text-gray-600 truncate"><?= $user['email'] ?></p>
                         </div>
                         <button onclick="moveToPending(<?= $user['id'] ?>)"
-                            class="px-4 py-2 bg-yellow-100 text-yellow-800 text-sm rounded-lg hover:bg-yellow-200 font-medium transition">DEACTIVATE
+                            class="flex-1 px-4 py-2 bg-yellow-100 text-yellow-800 text-sm rounded-lg hover:bg-yellow-200 font-medium transition">DEACTIVATE
                             ACCOUNT</button>
                     </div>
                 <?php endforeach; ?>
@@ -56,9 +60,9 @@
         </div>
 
         <!-- Rejected Users Section -->
-        <div class="flex-1 m-2 h-screen bg-white shadow-lg rounded-lg p-6 mb-2">
+        <div class="flex-1 m-2 h-screen overflow-y-auto bg-white shadow-lg rounded-lg p-6 mb-2">
             <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">DEACTIVE ACCOUNTS</h2>
-            <div class="space-y-4 overflow-y-auto h-[900px]">
+            <div class="space-y-4 ">
 
                 <?php foreach ($rejected_users as $user): ?>
                     <div
