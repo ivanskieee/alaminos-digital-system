@@ -40,13 +40,6 @@
             width: 350px;
             max-width: 100%;
         }
-
-
-
-        .useruploadedFiles,
-        .all_users {
-            height: 500px;
-        }
     </style>
 </head>
 
@@ -56,9 +49,9 @@
     <!-- Main Content -->
     <div class="main-container">
         <!-- Left Section -->
-        <div class="left-section space-y-6">
+        <div class="left-section space-y-6 h-screen flex flex-col">
             <!-- Uploaded Files -->
-            <div class="useruploadedFiles bg-white shadow rounded-lg p-6 overflow-y-auto">
+            <div class="useruploadedFiles bg-white shadow rounded-lg p-6 overflow-y-auto h-[calc(50%-50px)]">
                 <h2 class="text-2xl font-semibold text-gray-700 mb-4">User Uploaded Files</h2>
 
                 <!-- Table for 2XL and larger -->
@@ -176,7 +169,7 @@
             });
             ?>
             <!-- Users Progress -->
-            <div class="all_users bg-white shadow rounded-lg p-6  overflow-y-auto">
+            <div class="all_users bg-white shadow rounded-lg p-6  overflow-y-auto h-[calc(50%-50px)]">
                 <h2 class="text-2xl font-semibold text-gray-700 mb-4">All Users</h2>
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-100">

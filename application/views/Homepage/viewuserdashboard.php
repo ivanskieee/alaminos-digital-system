@@ -258,7 +258,8 @@
         </div>
         <div class="flex flex-wrap gap-6">
 
-            <div class="flex-1 h-[500px] bg-white p-5 rounded-lg shadow-md">
+            <!-- Hidden on mobile (visible on sm and up) -->
+            <div class="hidden sm:block flex-1 h-[500px] bg-white p-5 rounded-lg shadow-md">
                 <div class="relative w-full">
                     <!-- Vertical Ellipsis Button -->
                     <a onclick="toggleEllipsisDashboard(this)"
@@ -268,7 +269,6 @@
 
                     <!-- Dropdown Menu -->
                     <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
-
                         <a onclick="downloadChart(this)"
                             class="hover_darkmode_gray cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                             Download Chart as img
@@ -277,15 +277,14 @@
                             class="hover_darkmode_gray cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                             Export as PDF
                         </a>
-
                     </div>
                 </div>
                 <h3 class="text-sm font-semibold mb-3 text-center">Rank Progression Comparison</h3>
                 <canvas id="rankProgressRadarChart"></canvas>
             </div>
 
-            <!-- User Points Distribution -->
-            <div class="flex-1 h-[500px] bg-white p-5 rounded-lg shadow-md">
+            <!-- Always visible (even on mobile) -->
+            <div class="hidden sm:block flex-1 h-[500px] bg-white p-5 rounded-lg shadow-md">
                 <div class="relative w-full">
                     <!-- Vertical Ellipsis Button -->
                     <a onclick="toggleEllipsisDashboard(this)"
@@ -295,7 +294,6 @@
 
                     <!-- Dropdown Menu -->
                     <div class="hidden absolute right-2 top-10 bg-white shadow-md rounded-lg py-2 w-40 z-10">
-
                         <a onclick="downloadChart(this)"
                             class="hover_darkmode_gray cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                             Download Chart as img
@@ -304,16 +302,14 @@
                             class="hover_darkmode_gray cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                             Export as PDF
                         </a>
-
                     </div>
                 </div>
                 <h3 class="text-sm font-semibold mb-3 text-center">User Points Distribution</h3>
                 <canvas id="userPointsBarChart"></canvas>
             </div>
 
-
-
         </div>
+
     </div>
     <script>
 
