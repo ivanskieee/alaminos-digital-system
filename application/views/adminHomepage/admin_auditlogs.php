@@ -9,21 +9,18 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         .main-container {
             display: flex;
-            height: calc(100vh - 3rem);
             overflow: hidden;
         }
 
         .left-section,
         .right-section {
             overflow-y: auto;
-            padding: 1rem;
         }
 
         .left-section {
@@ -38,13 +35,13 @@
     </style>
 </head>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal ">
 
-    <div class="main-container">
+    <div class="main-container h-[calc(100vh-80px)]">
 
         <div class="left-section py-6 mx-3 ">
-            <div class="bg-white overflow-y-auto shadow-2xl rounded-lg h-[800px] ">
-                <div class="bg-gradient-to-r from-teal-500 to-teal-600 p-6 sticky top-0 z-10">
+            <div class="bg-white overflow-y-auto shadow-2xl rounded-lg h-[calc(100vh-120px)] ">
+                <div class="bg-gradient-to-r from-teal-500 to-teal-600 p-6">
                     <h4 class="text-3xl text-center uppercase text-white ">Admin Audit Logs</h4>
                 </div>
 
