@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADMIN FACULTY</title>
+    <title>ADMIN OFFICE</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
@@ -62,7 +62,7 @@
                                 </th>
                                 <th class="px-4 py-2 text-xs font-semibold text-gray-600 uppercase">Username</th>
                                 <th class="px-4 py-2 text-xs font-semibold text-gray-600 uppercase">Rank</th>
-                                <th class="px-4 py-2 text-xs font-semibold text-gray-600 uppercase">Faculty</th>
+                                <th class="px-4 py-2 text-xs font-semibold text-gray-600 uppercase">Office</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -75,24 +75,24 @@
 
                                     <td class="px-4 py-2 text-sm text-gray-800"><?= htmlspecialchars($user['username']); ?>
                                     </td>
-                                    <!-- <td class="px-4 py-2 text-sm text-gray-800">
-                                    <select name="rank" class="border border-gray-300 rounded-md px-2 py-1"
-                                        onchange="updateRank(<?= $user['id']; ?>, this.value)">
-                                        <option value="">-- Select Rank --</option>
-                                        <?php foreach ($ranks as $rank): ?>
-                                            <option value="<?= $rank['name']; ?>" <?= $user['rank'] == $rank['name'] ? 'selected' : ''; ?>>
-                                                <?= $rank['name']; ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </td> -->
                                     <td class="px-4 py-2 text-sm text-gray-800">
-                                        <?= !empty($user['rank']) ? htmlspecialchars($user['rank']) : '<span class="text-gray-500">No Rank</span>'; ?>
+                                        <select name="rank" class="border border-gray-300 rounded-md px-2 py-1"
+                                            onchange="updateRank(<?= $user['id']; ?>, this.value)">
+                                            <option value="">-- Select Rank --</option>
+                                            <?php foreach ($ranks as $rank): ?>
+                                                <option value="<?= $rank['name']; ?>" <?= $user['rank'] == $rank['name'] ? 'selected' : ''; ?>>
+                                                    <?= $rank['name']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </td>
+                                    <!-- <td class="px-4 py-2 text-sm text-gray-800">
+                                        <?= !empty($user['rank']) ? htmlspecialchars($user['rank']) : '<span class="text-gray-500">No Rank</span>'; ?>
+                                    </td> -->
                                     <td class="px-4 py-2 text-sm text-gray-800">
                                         <select name="faculty" class="border border-gray-300 rounded-md px-2 py-1"
                                             onchange="updateFaculty(<?= $user['id']; ?>, this.value)">
-                                            <option value="">-- Select Faculty --</option>
+                                            <option value="">-- Select Office --</option>
                                             <?php foreach ($faculties as $faculty): ?>
                                                 <option value="<?= $faculty['name']; ?>" <?= $user['faculty'] == $faculty['name'] ? 'selected' : ''; ?>>
                                                     <?= $faculty['name']; ?>
@@ -122,10 +122,10 @@
                             <p class="text-gray-600 text-sm"><span class="font-semibold">Rank:</span>
                                 <?= !empty($user['rank']) ? htmlspecialchars($user['rank']) : '<span class="text-gray-500">No Rank</span>'; ?>
                             </p>
-                            <p class="text-gray-600 text-sm mb-2"><span class="font-semibold">Faculty:</span></p>
+                            <p class="text-gray-600 text-sm mb-2"><span class="font-semibold">Office:</span></p>
                             <select name="faculty" class="w-full border border-gray-300 rounded-md px-2 py-1"
                                 onchange="updateFaculty(<?= $user['id']; ?>, this.value)">
-                                <option value="">-- Select Faculty --</option>
+                                <option value="">-- Select Office --</option>
                                 <?php foreach ($faculties as $faculty): ?>
                                     <option value="<?= $faculty['name']; ?>" <?= $user['faculty'] == $faculty['name'] ? 'selected' : ''; ?>>
                                         <?= $faculty['name']; ?>
@@ -145,8 +145,8 @@
 
             <!-- Two-Column Layout for Cards -->
             <div class="grid grid-cols-1 gap-6">
-                <!-- 
-            <div class="bg-white shadow-lg rounded-lg p-6">
+
+                <div class="bg-white shadow-lg rounded-lg p-6">
                     <h4 class="text-sm font-medium text-gray-700 mb-2">Add Rank</h4>
                     <form id="add-rank-form" class="space-y-4">
                         <input type="text"
@@ -159,16 +159,16 @@
                 </div>
 
                 <div class="bg-white shadow-lg rounded-lg p-6">
-                    <h4 class="text-sm font-medium text-gray-700 mb-2">Add Faculty</h4>
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">Add Office</h4>
                     <form id="add-faculty-form" class="space-y-4">
                         <input type="text"
                             class="w-full px-1 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none"
-                            id="faculty" name="faculty" placeholder="Enter new faculty" required>
+                            id="faculty" name="faculty" placeholder="Enter new office" required>
                         <button
                             class="w-full px-1 py-1 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-150"
-                            type="submit">Add Faculty</button>
+                            type="submit">Add Office</button>
                     </form>
-                </div> -->
+                </div>
 
 
                 <!-- Card: Bulk Actions -->
@@ -195,7 +195,7 @@
                     <div class="space-y-4">
                         <select id="bulk-faculty"
                             class="w-full px-1 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none">
-                            <option value="">-- Select Faculty --</option>
+                            <option value="">-- Select Office --</option>
                             <?php foreach ($faculties as $faculty): ?>
                                 <option value="<?= $faculty['name']; ?>"><?= $faculty['name']; ?></option>
                             <?php endforeach; ?>
@@ -203,7 +203,7 @@
                         <button
                             class="w-full px-1 py-1 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-150"
                             onclick="bulkAssignFaculty()">
-                            Assign Faculty
+                            Assign Office
                         </button>
                     </div>
 
@@ -218,12 +218,12 @@
                     <button
                         class="w-full px-1 py-1 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition duration-150"
                         onclick="bulkRemoveFaculty()">
-                        Remove Faculty
+                        Remove Office
                     </button>
                 </div>
 
                 <!-- Card: Delete Rank -->
-                <!-- <div class="bg-white shadow-lg rounded-lg p-6">
+                <div class="bg-white shadow-lg rounded-lg p-6">
                     <h4 class="text-sm font-medium text-gray-700 mt-5 mb-2">Delete Rank</h4>
                     <select id="delete-rank"
                         class="w-full px-1 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none mb-2">
@@ -237,10 +237,10 @@
                         onclick="deleteRank()">
                         Delete Rank
                     </button>
-                    <h4 class="text-sm font-medium text-gray-700 mb-2">Delete Faculty</h4>
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">Delete Office</h4>
                     <select id="delete-faculty"
                         class="w-full px-1 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none mb-2">
-                        <option value="">-- Select Faculty --</option>
+                        <option value="">-- Select Office --</option>
                         <?php foreach ($faculties as $faculty): ?>
                             <option value="<?= $faculty['id']; ?>"><?= $faculty['name']; ?></option>
                         <?php endforeach; ?>
@@ -248,9 +248,9 @@
                     <button
                         class="w-full px-1 py-1 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition duration-150"
                         onclick="deleteFaculty()">
-                        Delete Faculty
+                        Delete Office
                     </button>
-                </div> -->
+                </div>
 
 
             </div>

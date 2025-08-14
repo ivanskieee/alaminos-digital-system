@@ -287,6 +287,11 @@
                         }).showToast();
 
                         form.reset(); // Reset the form after successful upload
+
+                        // Reload the page after 3 seconds only on success
+                        setTimeout(function () {
+                            location.reload(); // Reload the page
+                        }, 3000);
                     } else {
                         Toastify({
                             text: data.message || "An error occurred during upload.",
@@ -296,6 +301,7 @@
                             backgroundColor: "linear-gradient(to right,rgb(97, 8, 8),rgb(190, 44, 93))",
                             stopOnFocus: true
                         }).showToast();
+                        // No page reload on error
                     }
                 })
                 .catch((error) => {
@@ -307,14 +313,9 @@
                         backgroundColor: "linear-gradient(to right,rgb(97, 8, 8),rgb(190, 44, 93))",
                         stopOnFocus: true
                     }).showToast();
+                    // No page reload on error
                 });
-
-            // Reload the page after Toastify finishes
-            setTimeout(function () {
-                location.reload(); // Reload the page
-            }, 2000);
         }
-
     </script>
 
 
@@ -741,4 +742,3 @@
 </body>
 
 </html>
-

@@ -157,48 +157,69 @@
             </div>
 
             <!-- Mobile Responsive Card Layout -->
-            <div class="2xl:hidden  grid grid-cols-1 md:grid-cols-2 gap-4 ">
+            <div class="2xl:hidden grid grid-cols-1 md:grid-cols-2 gap-4">
                 <?php if (is_array($file_submissions) && count($file_submissions) > 0): ?>
-                    <?php foreach ($file_submissions as $submission): ?>
-                        <div class="user-card bg-white rounded-lg shadow-md p-4 border border-gray-200">
-                            <div class="flex items-center justify-between mb-2">
-                                <h2 class="text-sm text-gray-700 font-semibold">
-                                    <?= htmlspecialchars($submission['username'] ?? 'Unknown User'); ?>
-                                </h2>
-                                <span
-                                    class="text-xs text-gray-500"><?= isset($submission['submitted_at']) ? date("F j, Y, g:i A", strtotime($submission['submitted_at'])) : 'N/A'; ?></span>
-                            </div>
+                    <?php
+                    $grouped_submissions = [];
+                    foreach ($file_submissions as $submission) {
+                        $username = $submission['username'] ?? 'Unknown User';
+                        $grouped_submissions[$username][] = $submission;
+                    }
+                    ?>
 
-                            <p class="text-sm text-gray-700"><span class="font-semibold">Current Rank:</span>
-                                <?= htmlspecialchars($submission['label']); ?></p>
-                            <p class="text-sm text-gray-700"><span class="font-semibold">Next Rank:</span>
-                                <?= htmlspecialchars($submission['next_rank_label']); ?></p>
+                    <?php foreach ($grouped_submissions as $username => $submissions): ?>
+                        <div class="bg-gray-100 p-2 rounded-md shadow-inner">
+                            <button class="toggle-group w-full text-left font-semibold text-gray-800 flex items-center mb-2"
+                                data-user="<?= md5($username); ?>">
+                                <i class="fas fa-chevron-down mr-2"></i><?= htmlspecialchars($username); ?>
+                            </button>
 
-                            <div class="mt-3 flex items-center justify-between">
-                                <a href="<?= base_url($submission['file_path']); ?>" target="_blank"
-                                    class="text-blue-500 hover:underline text-sm flex items-center space-x-1">
-                                    <i class="fas fa-file-alt"></i>
-                                    <span>View File</span>
-                                </a>
+                            <div class="group-<?= md5($username); ?> space-y-4 hidden">
+                                <?php foreach ($submissions as $submission): ?>
+                                    <div class="user-card bg-white rounded-lg shadow-md p-4 border border-gray-200">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <h2 class="text-sm text-gray-700 font-semibold">
+                                                <?= htmlspecialchars($submission['username'] ?? 'Unknown User'); ?>
+                                            </h2>
+                                            <span class="text-xs text-gray-500">
+                                                <?= isset($submission['submitted_at']) ? date("F j, Y, g:i A", strtotime($submission['submitted_at'])) : 'N/A'; ?>
+                                            </span>
+                                        </div>
 
-                                <span
-                                    class="inline-block py-1 px-3 rounded-full text-xs font-semibold 
-                        <?= $submission['approved'] ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'; ?>">
-                                    <?= $submission['approved'] ? 'Approved' : 'Pending'; ?>
-                                </span>
-                            </div>
+                                        <p class="text-sm text-gray-700"><span class="font-semibold">Current Rank:</span>
+                                            <?= htmlspecialchars($submission['label']); ?></p>
+                                        <p class="text-sm text-gray-700"><span class="font-semibold">Next Rank:</span>
+                                            <?= htmlspecialchars($submission['next_rank_label']); ?></p>
+                                        <p class="text-sm text-gray-700"><span class="font-semibold">Next Order:</span>
+                                            <?= htmlspecialchars($submission['next_rank_order']); ?></p>
 
-                            <div class="flex space-x-3 mt-3">
-                                <?php if (!$submission['approved']): ?>
-                                    <a href="javascript:void(0);" class="approve-link text-green-400 hover:text-green-500"
-                                        data-id="<?= $submission['id']; ?>">
-                                        <i class="fas fa-check-circle text-lg"></i>
-                                    </a>
-                                <?php endif; ?>
-                                <a href="javascript:void(0);" class="decline-link text-red-400 hover:text-red-500"
-                                    data-id="<?= $submission['id']; ?>">
-                                    <i class="fas fa-times-circle text-lg"></i>
-                                </a>
+                                        <div class="mt-3 flex items-center justify-between">
+                                            <a href="<?= base_url($submission['file_path']); ?>" target="_blank"
+                                                class="text-blue-500 hover:underline text-sm flex items-center space-x-1">
+                                                <i class="fas fa-file-alt"></i>
+                                                <span>View File</span>
+                                            </a>
+
+                                            <span
+                                                class="inline-block py-1 px-3 rounded-full text-xs font-semibold <?= $submission['approved'] ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'; ?>">
+                                                <?= $submission['approved'] ? 'Approved' : 'Pending'; ?>
+                                            </span>
+                                        </div>
+
+                                        <div class="flex space-x-3 mt-3">
+                                            <?php if (!$submission['approved']): ?>
+                                                <a href="javascript:void(0);" class="approve-link text-green-400 hover:text-green-500"
+                                                    data-id="<?= $submission['id']; ?>">
+                                                    <i class="fas fa-check-circle text-lg"></i>
+                                                </a>
+                                            <?php endif; ?>
+                                            <a href="javascript:void(0);" class="decline-link text-red-400 hover:text-red-500"
+                                                data-id="<?= $submission['id']; ?>">
+                                                <i class="fas fa-times-circle text-lg"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -206,7 +227,21 @@
                     <p class="text-center text-gray-500 py-4">No file submissions found.</p>
                 <?php endif; ?>
             </div>
+            <script>
+                document.querySelectorAll('.toggle-group').forEach(button => {
+                    const groupId = button.getAttribute('data-user');
+                    const group = document.querySelector(`.group-${groupId}`);
 
+                    button.addEventListener('click', () => {
+                        const isVisible = !group.classList.contains('hidden');
+                        group.classList.toggle('hidden', isVisible);
+                        const icon = button.querySelector('i');
+                        icon.classList.toggle('fa-chevron-down', isVisible);
+                        icon.classList.toggle('fa-chevron-up', !isVisible);
+                    });
+                });
+
+            </script>
 
 
         </div>

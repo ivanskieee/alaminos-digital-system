@@ -107,7 +107,7 @@
                     <p class="text-gray-600"><strong class="text-gray-800">Rank:</strong>
                         <?= htmlspecialchars($user['rank'] ?: 'Not Yet Assigned'); ?>
                     </p>
-                    <p class="text-gray-600"><strong class="text-gray-800">Faculty:</strong>
+                    <p class="text-gray-600"><strong class="text-gray-800">Office:</strong>
                         <?= htmlspecialchars($user['faculty'] ?: 'Not Yet Assigned'); ?>
                     </p>
                 </div>
@@ -202,26 +202,6 @@
                 }
             </script>
 
-            <!-- Faculty Members -->
-            <h1 class="text-2xl py-2 uppercase mt-6">FACULTY MEMBERS</h1>
-            <div class="darkmode faculty p-2 border rounded-lg shadow-md bg-gray-100 h-96 overflow-y-auto">
-                <?php foreach ($fellow_faculty_members as $faculty_member): ?>
-                    <?php if ($faculty_member['id'] != $user['id'] && $faculty_member['faculty'] === $user['faculty']): ?>
-                        <div class="bg-white p-3 rounded-lg shadow mb-2">
-                            <div class="flex items-center space-x-3">
-                                <img class="w-12 h-12 rounded-full object-cover"
-                                    src="<?= base_url($faculty_member['uploaded_profile_image'] ?? 'uploads/default_profiles/default_profile.avif'); ?>"
-                                    alt="Profile Image">
-                                <div>
-                                    <h3 class="text-lg font-semibold"><?= htmlspecialchars($faculty_member['username']); ?></h3>
-                                    <p class="text-sm text-gray-600"><strong>Rank:</strong>
-                                        <?= htmlspecialchars($faculty_member['rank'] ?: 'Not Yet Assigned'); ?></p>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
         </div>
     </div>
     <script>

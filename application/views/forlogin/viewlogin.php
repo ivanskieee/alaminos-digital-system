@@ -53,9 +53,9 @@
 <body class="flex items-center justify-center min-h-screen bg-gray-900 bg-opacity-60">
   <div
     class="w-full max-w-md p-6 bg-white bg-opacity-20 backdrop-blur-md rounded-lg shadow-lg  absolute mt-[-30px] ml-[30px]">
-    <div class="flex justify-center">
+    <!-- <div class="flex justify-center">
       <img src="<?= base_url('/design/images/SPClogo.png') ?>" alt="SPC Logo" class="w-20 h-20 rounded-lg">
-    </div>
+    </div> -->
     <h2 class="text-2xl font-bold text-center text-green-900 uppercase text-sm mt-4">USER LOGIN</h2>
 
     <form id="login-form" method="post" action="<?= base_url('auth/viewlogin'); ?>">
@@ -84,10 +84,19 @@
       </div>
 
       <!-- Login Button -->
+      <!-- Login Button -->
       <button type="submit"
         class="w-full py-2 mt-2 bg-green-100 hover:bg-green-200 text-green-700 font-semibold rounded-lg">
         Login
       </button>
+
+      <!-- Forgot Password -->
+      <div class="text-center mt-2">
+        <a href="<?= base_url('auth/forgot_password_view') ?>"
+          class="text-green-700 text-xs uppercase font-bold hover:underline">
+          Forgot Password?
+        </a>
+      </div>
     </form>
 
     <div class="text-center mt-4">

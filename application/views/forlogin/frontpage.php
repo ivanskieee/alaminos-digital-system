@@ -25,9 +25,9 @@
     <!-- Navbar -->
     <nav class="bg-teal-800 fixed w-full z-50 shadow-lg">
         <div class="container mx-auto flex items-center justify-between px-6 py-3">
-            <a href="#">
+            <!-- <a href="#">
                 <img src="<?= base_url('/design/images/greenSPClogo.avif') ?>" alt="Logo" class="h-10">
-            </a>
+            </a> -->
 
             <!-- Mobile Menu Button -->
             <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none">
@@ -44,7 +44,7 @@
             <div class="hidden md:flex space-x-4">
                 <a href="<?= base_url('auth/login') ?>" class="text-white hover:text-yellow-400">Login</a>
                 <a href="<?= base_url('auth/viewregister') ?>" class="text-white hover:text-yellow-400">Register</a>
-                <a href="<?= base_url('auth/contact') ?>" class="text-white hover:text-yellow-400">Contact</a>
+                <a href="<?= base_url('auth/contact') ?>" class="text-white hover:text-yellow-400">Schedule</a>
             </div>
         </div>
 
@@ -68,7 +68,8 @@
         <div>
             <h1 class="text-4xl md:text-5xl font-bold uppercase ">Welcome to <h1
                     class="text-4xl md:text-5xl font-bold uppercase custom-text-stroke text-transparent ">
-                    Ranking System</h1>
+                    Alaminos, Digital Transformation
+                </h1>
             </h1>
             <p class="text-lg md:text-2xl my-4">Experience seamless and efficient management</p>
             <button id="get-features"
@@ -84,7 +85,7 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="min-h-screen bg-cover bg-white bg-center  px-6 py-16 fade-in relative"
+    <section id="features" class="min-h-screen bg-cover bg-white bg-center px-6 py-16 fade-in relative"
         style="background-image: <?= base_url('assets/login_image/login_background3.jpg') ?>">
 
         <!-- Dark overlay for readability -->
@@ -92,68 +93,70 @@
             style="background-image: url('<?= base_url('assets/login_image/loginBackground.jpg') ?>');"></div>
 
         <div class="relative container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-10 text-teal-700 uppercase">Key Features</h2>
+            <h2 class="text-4xl font-bold mb-10 text-teal-700 uppercase">LGU Core Services</h2>
 
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Feature 1: Real-Time Queue Management -->
+                <!-- Feature 1: Business Tax Processing -->
                 <div
                     class="bg-white bg-opacity-90 shadow-lg rounded-lg p-6 flex flex-col items-center text-gray-900 transform hover:scale-105 transition">
-                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/queue.png" alt="Queue" class="w-16 mb-4">
-                    <h3 class="text-xl font-semibold text-teal-700">Real-Time Queue Management</h3>
-                    <p class="text-gray-700 mt-2 text-sm">
-                        Track and serve users efficiently with our live queueing system.
-                    </p>
-                </div>
-
-                <!-- Feature 2: Secure Authentication -->
-                <div
-                    class="bg-white bg-opacity-90 shadow-lg rounded-lg p-6 flex flex-col items-center text-gray-900 transform hover:scale-105 transition">
-                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/security-checked.png" alt="Security"
+                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/bank-card-front-side.png" alt="Tax"
                         class="w-16 mb-4">
-                    <h3 class="text-xl font-semibold text-teal-700">Secure Authentication</h3>
+                    <h3 class="text-xl font-semibold text-teal-700">Business Tax Processing</h3>
                     <p class="text-gray-700 mt-2 text-sm">
-                        Admin-approved login ensures only authorized users can access.
+                        Apply, compute, and process business tax payments efficiently online.
                     </p>
                 </div>
 
-                <!-- Feature 3: Task Submission System -->
+                <!-- Feature 2: Digital Permit & Licensing -->
                 <div
                     class="bg-white bg-opacity-90 shadow-lg rounded-lg p-6 flex flex-col items-center text-gray-900 transform hover:scale-105 transition">
-                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/task.png" alt="Tasks" class="w-16 mb-4">
-                    <h3 class="text-xl font-semibold text-teal-700">Task Submission</h3>
+                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/license.png" alt="Permit" class="w-16 mb-4">
+                    <h3 class="text-xl font-semibold text-teal-700">Digital Permit & Licensing</h3>
                     <p class="text-gray-700 mt-2 text-sm">
-                        Users can submit tasks, and admins can review and approve them.
+                        Streamline the application and renewal of business permits and licenses.
                     </p>
                 </div>
 
-                <!-- Feature 4: Admin Task Monitoring -->
+                <!-- Feature 3: Citizen Feedback System -->
                 <div
                     class="bg-white bg-opacity-90 shadow-lg rounded-lg p-6 flex flex-col items-center text-gray-900 transform hover:scale-105 transition">
-                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/monitor.png" alt="Monitoring"
+                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/feedback.png" alt="Feedback"
                         class="w-16 mb-4">
-                    <h3 class="text-xl font-semibold text-teal-700">Admin Monitoring</h3>
+                    <h3 class="text-xl font-semibold text-teal-700">Citizen Feedback</h3>
                     <p class="text-gray-700 mt-2 text-sm">
-                        Track progress, approve submissions, and manage tasks in real-time.
+                        Submit feedback and suggestions to help improve local governance.
                     </p>
                 </div>
 
-                <!-- Feature 5: Pointing System -->
+                <!-- Feature 4: Real-Time Status Tracking -->
                 <div
                     class="bg-white bg-opacity-90 shadow-lg rounded-lg p-6 flex flex-col items-center text-gray-900 transform hover:scale-105 transition">
-                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/star.png" alt="Points" class="w-16 mb-4">
-                    <h3 class="text-xl font-semibold text-teal-700">Point System</h3>
+                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/time-machine.png" alt="Status"
+                        class="w-16 mb-4">
+                    <h3 class="text-xl font-semibold text-teal-700">Real-Time Status Tracking</h3>
                     <p class="text-gray-700 mt-2 text-sm">
-                        Earn points for each completed task and track progress.
+                        Monitor the status of your applications, taxes, and permits in real-time.
                     </p>
                 </div>
 
-                <!-- Feature 6: Ranking System -->
+                <!-- Feature 5: Secure Account Management -->
                 <div
                     class="bg-white bg-opacity-90 shadow-lg rounded-lg p-6 flex flex-col items-center text-gray-900 transform hover:scale-105 transition">
-                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/trophy.png" alt="Ranking" class="w-16 mb-4">
-                    <h3 class="text-xl font-semibold text-teal-700">Ranking System</h3>
+                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/lock.png" alt="Security" class="w-16 mb-4">
+                    <h3 class="text-xl font-semibold text-teal-700">Secure Access</h3>
                     <p class="text-gray-700 mt-2 text-sm">
-                        View your rank based on points and compete for the top spot!
+                        Government-verified user access for secure and private transactions.
+                    </p>
+                </div>
+
+                <!-- Feature 6: Transparent LGU Dashboard -->
+                <div
+                    class="bg-white bg-opacity-90 shadow-lg rounded-lg p-6 flex flex-col items-center text-gray-900 transform hover:scale-105 transition">
+                    <img src="https://img.icons8.com/ios-filled/100/66cdaa/combo-chart.png" alt="Dashboard"
+                        class="w-16 mb-4">
+                    <h3 class="text-xl font-semibold text-teal-700">LGU Dashboard</h3>
+                    <p class="text-gray-700 mt-2 text-sm">
+                        Access data analytics and performance reports for transparency and accountability.
                     </p>
                 </div>
             </div>
@@ -204,10 +207,9 @@
 
 
     <!-- Testimonials Section -->
-    <!-- Testimonials Section -->
     <section id="testimonials"
         class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center px-6 py-12 fade-in">
-        <h2 class="text-4xl font-extrabold mb-8 text-teal-400">What Our Users Say</h2>
+        <h2 class="text-4xl font-extrabold mb-8 text-teal-400">Recent Schedules</h2>
 
         <div class="w-11/12 md:w-2/3 text-center">
             <?php if (!empty($feedbacks)) {
@@ -242,11 +244,28 @@
             <?php } ?>
         </div>
     </section>
+    <!-- Font Awesome CDN (add in <head>) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white text-center py-4">
-        &copy; 2025 DEVELOPED BY JADE KEVIN BALOCOS
+        <div class="flex justify-center space-x-6 mb-2">
+            <!-- Replace # with your actual links later -->
+            <a href="https://www.facebook.com/kevin.balocos.3" target="_blank"
+                class="text-white hover:text-blue-500 transition">
+                <i class="fab fa-facebook fa-lg"></i>
+            </a>
+            <a href="https://www.instagram.com/jeyduuuuuu/" target="_blank"
+                class="text-white hover:text-pink-500 transition">
+                <i class="fab fa-instagram fa-lg"></i>
+            </a>
+            <a href="https://github.com/kevinbalocos" target="_blank" class="text-white hover:text-gray-400 transition">
+                <i class="fab fa-github fa-lg"></i>
+            </a>
+        </div>
+        <p>&copy; 2025 DEVELOPED BY JADE KEVIN BALOCOS</p>
     </footer>
+
 
     <!-- JavaScript for Smooth Scroll & Animations -->
     <script>

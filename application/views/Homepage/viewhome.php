@@ -163,12 +163,12 @@
                         <span class="text nav-text">ATTENDANCE</span>
                     </a>
                 </li> -->
-                <li class="nav-link">
+                <!-- <li class="nav-link">
                     <a class="darkmode_sidebar_links" href="javascript:void(0);" onclick="loadManualFacultyContent()">
-                        <i class="darkmode_sidebar_links bx bx-list-check icon"></i> <!-- Tasks icon -->
+                        <i class="darkmode_sidebar_links bx bx-list-check icon"></i> 
                         <span class="text nav-text">FACULTY MANUAL</span>
                     </a>
-                </li>
+                </li> -->
                 <!-- <li class="nav-link">
                     <a class="darkmode_sidebar_links" href="javascript:void(0);" onclick="loadUserTasksContent()">
                         <i class="darkmode_sidebar_links bx bx-list-check icon"></i> 
@@ -179,23 +179,17 @@
                 <li class="nav-link">
                     <a class="darkmode_sidebar_links" href="javascript:void(0);" onclick="loadRequirementStatus()">
                         <i class="darkmode_sidebar_links bx bx-clipboard icon"></i> <!-- Requirement status icon -->
-                        <span class="text nav-text">REQUIREMENT STATUS</span>
+                        <span class="text nav-text">FILE STATUS</span>
                     </a>
                 </li>
 
                 <li class="nav-link">
                     <a class="darkmode_sidebar_links" href="javascript:void(0);" onclick="loadFacultyContent()">
                         <i class="darkmode_sidebar_links bx bx-book icon"></i> <!-- Book icon -->
-                        <span class="text nav-text">FACULTY</span>
+                        <span class="text nav-text">RANKING</span>
                     </a>
                 </li>
-                <li class="nav-link">
-                    <a class="darkmode_sidebar_links" href="javascript:void(0);"
-                        onclick="UserFacultyMemberInformation()">
-                        <i class="darkmode_sidebar_links bx bx-user-circle icon"></i> <!-- Profile icon -->
-                        <span class="text nav-text">FACULTY MEMBER STAT</span>
-                    </a>
-                </li>
+
 
 
 
@@ -226,102 +220,396 @@
         </div>
     </nav>
 
+
     <section class="home">
-        <nav class="sticky top-0 z-10 bg-white p-4 flex justify-between items-center shadow-md">
-            <div class="font-bold text-lg pl-10">
-                Faculty Ranking and Data Management System for Academic Excellence
-            </div>
-
-            <div class="flex items-center space-x-6 pr-10">
-                <!-- Notification Icon -->
-                <div class="relative">
-                    <a id="notificationButton" class="cursor-pointer relative focus:outline-none"
-                        onclick="toggleDropdown()">
-                        <i class="fas fa-bell text-green-600 text-2xl"></i>
-                        <!-- Notification Counter -->
-                        <span id="notificationCounter"
-                            class="absolute -top-2 -right-2 bg-green-200 text-green-800 text-xs font-bold rounded-full px-2">
-                            <?= $unread_notifications ?>
-                        </span>
-                    </a>
-
-                    <!-- Notification Dropdown -->
-                    <div id="notificationDropdown"
-                        class="hidden absolute right-0 mt-2 w-96 bg-white shadow-lg rounded-lg z-10 border overflow-y-auto">
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg flex justify-between px-1 py-2">
-                                Notifications
-                                <a class="text-green-500 rounded px-2 cursor-pointer hover:text-green-800"
-                                    onclick="markNotificationsRead()">Mark all as read</a>
-                                <a class="text-red-500 rounded px-2 cursor-pointer hover:text-red-700"
-                                    onclick="deleteAll_ViewHome_Notifications()">Delete all</a>
-                            </h3>
-                            <ul class="mt-2 max-h-96 overflow-y-auto">
-                                <?php if (empty($notifications)): ?>
-                                    <li class="bg-gray-50 p-3 rounded text-center text-gray-500">
-                                        No notifications yet
-                                    </li>
-                                <?php else: ?>
-                                    <?php foreach ($notifications as $notification): ?>
-                                        <li
-                                            class="bg-white border-b border-gray-200 p-2 my-3 rounded flex justify-between items-center">
-                                            <div>
-                                                <p><?= htmlspecialchars($notification['message']) ?></p>
-                                                <p class="text-sm text-gray-500">
-                                                    <?= date('F j, Y, g:i a', strtotime($notification['created_at'])) ?>
-                                                </p>
-                                            </div>
-                                        </li>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </ul>
-                        </div>
-                    </div>
+        <nav class="sticky top-0 z-10 bg-white shadow-md">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="font-bold text-lg hidden sm:block">
+                    Making Business Transactions in LGU Easier Through Online Services
                 </div>
 
-                <!-- Dropdown Menu for User Settings -->
-                <div class="relative">
+                <!-- Right-aligned items (Notification and Profile) -->
+                <div class="flex items-center space-x-6 ml-auto">
+                    <!-- Notification Icon -->
                     <div class="relative">
-                        <a id="userMenuButton" class="flex items-center focus:outline-none cursor-pointer"
-                            onclick="toggleUserMenu()">
-                            <img src="<?= base_url($user['uploaded_profile_image'] ?? 'uploads/default_profiles/default_profile.avif'); ?>"
-                                alt="Profile Image"
-                                class="w-8 h-8 rounded-full border border-gray-300 shadow-sm object-cover">
+                        <a id="notificationButton" class="cursor-pointer relative focus:outline-none"
+                            onclick="toggleDropdown()">
+                            <i class="fas fa-bell text-green-600 text-2xl"></i>
+                            <!-- Notification Counter -->
+                            <span id="notificationCounter"
+                                class="absolute -top-2 -right-2 bg-green-200 text-green-800 text-xs font-bold rounded-full px-2">
+                                <?= $unread_notifications ?>
+                            </span>
                         </a>
-                        <div id="userMenuDropdown"
-                            class="hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10 border">
-                            <ul class="py-2 text-gray-700">
-                                <li>
-                                    <a href="javascript:void(0);" onclick="UserChangePassword()"
-                                        class="hover_darkmode_gray block px-4 text-sm py-2 hover:bg-gray-100 flex items-center space-x-2">
-                                        <i class="bx bx-key text-lg"></i>
-                                        <span>Change Password</span>
-                                    </a>
-                                </li>
 
-                                <li>
-                                    <a href="javascript:void(0);" onclick="userChangeUserInformation()"
-                                        class="hover_darkmode_gray block px-4 text-sm py-2 hover:bg-gray-100 flex items-center space-x-2">
-                                        <i class="bx bx-user text-lg"></i>
-                                        <span>Change Personal Info</span>
-                                    </a>
-                                </li>
+                        <!-- Notification Dropdown -->
+                        <div id="notificationDropdown"
+                            class="hidden absolute right-0 mt-2 w-96 bg-white shadow-lg rounded-lg z-10 border overflow-y-auto max-h-96">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg flex justify-between px-1 py-2">
+                                    Notifications
+                                    <a class="text-green-500 rounded px-2 cursor-pointer hover:text-green-800"
+                                        onclick="markNotificationsRead()">Mark all as read</a>
+                                    <a class="text-red-500 rounded px-2 cursor-pointer hover:text-red-700"
+                                        onclick="deleteAll_ViewHome_Notifications()">Delete all</a>
+                                </h3>
+                                <ul class="mt-2">
+                                    <?php if (empty($notifications)): ?>
+                                        <li class="bg-gray-50 p-3 rounded text-center text-gray-500">
+                                            No notifications yet
+                                        </li>
+                                    <?php else: ?>
+                                        <?php foreach ($notifications as $notification): ?>
+                                            <li
+                                                class="bg-white border-b border-gray-200 p-2 my-3 rounded flex justify-between items-center">
+                                                <div>
+                                                    <p><?= htmlspecialchars($notification['message']) ?></p>
+                                                    <p class="text-sm text-gray-500">
+                                                        <?= date('F j, Y, g:i a', strtotime($notification['created_at'])) ?>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Profile Picture Icon -->
+                    <div class="relative">
+                        <div class="relative">
+                            <a id="userMenuButton" class="flex items-center focus:outline-none cursor-pointer"
+                                onclick="toggleUserMenu()">
+                                <img src="<?= base_url($user['uploaded_profile_image'] ?? 'uploads/default_profiles/default_profile.avif'); ?>"
+                                    alt="Profile Image"
+                                    class="w-8 h-8 rounded-full border border-gray-300 shadow-sm object-cover">
+                            </a>
+                            <div id="userMenuDropdown"
+                                class="hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10 border">
+                                <ul class="py-2 text-gray-700">
+                                    <li>
+                                        <a href="javascript:void(0);" onclick="UserChangePassword()"
+                                            class="hover_darkmode_gray block px-4 text-sm py-2 hover:bg-gray-100 flex items-center space-x-2">
+                                            <i class="bx bx-key text-lg"></i>
+                                            <span>Change Password</span>
+                                        </a>
+                                    </li>
 
+                                    <li>
+                                        <a href="javascript:void(0);" onclick="userChangeUserInformation()"
+                                            class="hover_darkmode_gray block px-4 text-sm py-2 hover:bg-gray-100 flex items-center space-x-2">
+                                            <i class="bx bx-user text-lg"></i>
+                                            <span>Change Personal Info</span>
+                                        </a>
+                                    </li>
 
-
-                                <li class="border-t">
-                                    <a onclick="checker(event)" href="<?php echo base_url('Home/logout'); ?>"
-                                        class="hover_darkmode_gray block px-4 text-sm py-2 text-red-600 hover:bg-gray-100 flex items-center space-x-2">
-                                        <i class="bx bx-log-out text-lg"></i>
-                                        <span>Logout</span>
-                                    </a>
-                                </li>
-                            </ul>
+                                    <li class="border-t">
+                                        <a onclick="checker(event)" href="<?php echo base_url('Home/logout'); ?>"
+                                            class="hover_darkmode_gray block px-4 text-sm py-2 text-red-600 hover:bg-gray-100 flex items-center space-x-2">
+                                            <i class="bx bx-log-out text-lg"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </nav>
+
+        <!-- Add these style tags in the head section -->
+        <style>
+            /* Ensure Tailwind utilities are available even if CDN fails to load properly */
+            .sticky {
+                position: sticky;
+            }
+
+            .top-0 {
+                top: 0;
+            }
+
+            .z-10 {
+                z-index: 10;
+            }
+
+            .bg-white {
+                background-color: white;
+            }
+
+            .shadow-md {
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            }
+
+            .container {
+                width: 100%;
+            }
+
+            .mx-auto {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .px-4 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .py-3 {
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+
+            .flex {
+                display: flex;
+            }
+
+            .justify-between {
+                justify-content: space-between;
+            }
+
+            .items-center {
+                align-items: center;
+            }
+
+            .font-bold {
+                font-weight: 700;
+            }
+
+            .text-lg {
+                font-size: 1.125rem;
+                line-height: 1.75rem;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            .sm\:block {
+                @media (min-width: 640px) {
+                    display: block;
+                }
+            }
+
+            .space-x-6>*+* {
+                margin-left: 1.5rem;
+            }
+
+            .ml-auto {
+                margin-left: auto;
+            }
+
+            .relative {
+                position: relative;
+            }
+
+            .cursor-pointer {
+                cursor: pointer;
+            }
+
+            .focus\:outline-none:focus {
+                outline: 2px solid transparent;
+                outline-offset: 2px;
+            }
+
+            .text-green-600 {
+                color: #059669;
+            }
+
+            .text-2xl {
+                font-size: 1.5rem;
+                line-height: 2rem;
+            }
+
+            .absolute {
+                position: absolute;
+            }
+
+            .-top-2 {
+                top: -0.5rem;
+            }
+
+            .-right-2 {
+                right: -0.5rem;
+            }
+
+            .bg-green-200 {
+                background-color: #a7f3d0;
+            }
+
+            .text-green-800 {
+                color: #065f46;
+            }
+
+            .text-xs {
+                font-size: 0.75rem;
+                line-height: 1rem;
+            }
+
+            .rounded-full {
+                border-radius: 9999px;
+            }
+
+            .px-2 {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+
+            .mt-2 {
+                margin-top: 0.5rem;
+            }
+
+            .w-96 {
+                width: 24rem;
+            }
+
+            .w-48 {
+                width: 12rem;
+            }
+
+            .rounded-lg {
+                border-radius: 0.5rem;
+            }
+
+            .border {
+                border-width: 1px;
+            }
+
+            .overflow-y-auto {
+                overflow-y: auto;
+            }
+
+            .max-h-96 {
+                max-height: 24rem;
+            }
+
+            .p-4 {
+                padding: 1rem;
+            }
+
+            .py-2 {
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+
+            .text-green-500 {
+                color: #10b981;
+            }
+
+            .hover\:text-green-800:hover {
+                color: #065f46;
+            }
+
+            .text-red-500 {
+                color: #ef4444;
+            }
+
+            .hover\:text-red-700:hover {
+                color: #b91c1c;
+            }
+
+            .bg-gray-50 {
+                background-color: #f9fafb;
+            }
+
+            .p-3 {
+                padding: 0.75rem;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .text-gray-500 {
+                color: #6b7280;
+            }
+
+            .bg-white {
+                background-color: white;
+            }
+
+            .border-b {
+                border-bottom-width: 1px;
+            }
+
+            .border-gray-200 {
+                border-color: #e5e7eb;
+            }
+
+            .p-2 {
+                padding: 0.5rem;
+            }
+
+            .my-3 {
+                margin-top: 0.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .text-sm {
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+            }
+
+            .w-8 {
+                width: 2rem;
+            }
+
+            .h-8 {
+                height: 2rem;
+            }
+
+            .border-gray-300 {
+                border-color: #d1d5db;
+            }
+
+            .shadow-sm {
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            }
+
+            .object-cover {
+                object-fit: cover;
+            }
+
+            .text-gray-700 {
+                color: #374151;
+            }
+
+            .hover\:bg-gray-100:hover {
+                background-color: #f3f4f6;
+            }
+
+            .space-x-2>*+* {
+                margin-left: 0.5rem;
+            }
+
+            .border-t {
+                border-top-width: 1px;
+            }
+
+            .text-red-600 {
+                color: #dc2626;
+            }
+
+            /* Responsive dropdown adjustments */
+            @media (max-width: 768px) {
+                #notificationDropdown {
+                    width: 90vw;
+                    max-height: 80vh;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    right: auto;
+                }
+            }
+
+            @media (max-width: 480px) {
+                #notificationDropdown {
+                    width: 95vw;
+                }
+            }
+        </style>
+
+        <div id="content-container"></div> <!-- This will load the usertask.php view dynamically -->
 
         <script>
             // Toggle Notifications Dropdown
@@ -514,7 +802,6 @@
         </script>
 
 
-        <div id="content-container"></div> <!-- This will load the usertask.php view dynamically -->
     </section>
 
     <script>

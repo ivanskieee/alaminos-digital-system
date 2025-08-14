@@ -33,6 +33,148 @@ class Auth extends CI_Controller
 
 
     }
+    public function forgot_password_view()
+    {
+        $this->load->view('adminHomepage/forgot_password');
+    }
+
+    public function forgot_password()
+    {
+        $this->load->helper('string');
+        $this->load->model('auth_model');
+
+        $email = $this->input->post('email');
+        $user = $this->auth_model->get_user_by_email($email);
+
+        if ($user) {
+            $token = random_string('alnum', 40);
+            $this->auth_model->save_reset_token($user->id, $token);
+
+            $reset_link = base_url("auth/reset_password/" . $token);
+
+            $this->load->library('email', $this->email_config);
+            $this->email->initialize($this->email_config);
+
+            $this->email->from('erankingsystem@gmail.com', 'eRanking System');
+            $this->email->to($email);
+            $this->email->subject('eRanking System Password Reset Request');
+
+            $message = "
+            <div style='font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; color: #333;'>
+                <div style='max-width: 600px; margin: auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);'>
+                    <h2 style='text-align: center; color: #00695c;'>eRanking System</h2>
+                    <p>Dear <strong>{$user->username}</strong>,</p>
+            
+                    <p>We have received a request to reset the password associated with this email address. If you did not request to reset your password, please ignore this email and no further action will be taken.</p>
+            
+                    <p>If you did make this request, you may reset your password using the secure link provided below. This link is valid for a limited time and will expire shortly for your protection:</p>
+            
+                    <div style='text-align: center; margin: 30px 0;'>
+                        <a href='{$reset_link}' style='background-color: #009688; color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 5px;'>Reset Password</a>
+                    </div>
+            
+                    <p>If the button above doesn't work, please copy and paste the following URL into your browser:</p>
+                    <p style='word-break: break-all; background-color: #f1f1f1; padding: 10px; border-left: 4px solid #009688;'>{$reset_link}</p>
+            
+                    <p>For your account's security, please do not share this email or reset link with anyone.</p>
+            
+                    <p>Thank you for using the eRanking System. If you have any questions or concerns, please contact our support team.</p>
+            
+                    <p style='margin-top: 40px;'>Sincerely,<br><strong>eRanking System Team</strong></p>
+                </div>
+            </div>";
+
+
+            $this->email->message($message);
+
+            if ($this->email->send()) {
+                $this->session->set_flashdata('toast_success', 'Reset link has been sent to your Gmail address. Please check your inbox.');
+            } else {
+                $this->session->set_flashdata('toast_error', 'Failed to send the password reset email. Please try again or contact support.');
+            }
+        } else {
+            $this->session->set_flashdata('toast_error', 'The provided email address was not found in our system.');
+        }
+
+        redirect('auth/forgot_password_view');
+    }
+
+
+    private function init_email()
+    {
+        $this->load->library('email', $this->email_config);
+        $this->email->initialize($this->email_config);
+    }
+
+    public function reset_password($token = null)
+    {
+        // Check if token is provided
+        if (!$token) {
+            $data = [
+                'error_title' => 'Invalid Token',
+                'error_message' => 'The token you provided is invalid. Please try again.'
+            ];
+            $this->load->view('message_design/invalid_token', $data);
+            return;
+        }
+
+        // Get user by token, including reset token expiry
+        $user = $this->auth_model->get_user_by_token($token);
+
+        // Check if user exists and the expiry field is available
+        if (!$user || !isset($user->reset_token_expiry)) {
+            $data = [
+                'error_title' => 'Invalid Token',
+                'error_message' => 'The token has either expired or does not exist. Please request a new one.'
+            ];
+            $this->load->view('message_design/invalid_token', $data);
+            return;
+        }
+
+        // Check if token has expired (e.g., 1 hour expiry)
+        $expiry_time = strtotime($user->reset_token_expiry);
+        if (time() > $expiry_time) {
+            $data = [
+                'error_title' => 'Token Expired',
+                'error_message' => 'The reset token has expired. Please request a new one.'
+            ];
+            $this->load->view('message_design/invalid_token', $data);
+            return;
+        }
+
+        // Handle password reset submission
+        if ($this->input->post('password')) {
+            $password = $this->input->post('password');
+
+            // Check if the password is at least 6 characters
+            if (strlen($password) < 6) {
+                $data = [
+                    'error_title' => 'Password Too Short',
+                    'error_message' => 'Password must be at least 6 characters long.'
+                ];
+                $this->load->view('message_design/invalid_token', $data);
+                return;
+            }
+
+            // Hash the password and update it
+            $password = password_hash($password, PASSWORD_BCRYPT);
+            $this->auth_model->update_password($user->id, $password);
+
+            // Optionally, invalidate the token after use
+            $this->auth_model->invalidate_reset_token($user->id);
+
+            // Set Toastify success message for password change
+            $this->session->set_flashdata('toast_success', 'Your password has been successfully updated!');
+
+            // Pass a flag to display the toast in the view
+            $this->load->view('adminHomepage/reset_password_form', [
+                'token' => $token,
+                'toast_success' => true
+            ]);
+        } else {
+            $this->load->view('adminHomepage/reset_password_form', ['token' => $token]);
+        }
+    }
 
     public function index()
     {

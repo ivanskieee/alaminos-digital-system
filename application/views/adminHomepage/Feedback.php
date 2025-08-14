@@ -48,7 +48,7 @@
         <!-- Left Section - Feedback Messages -->
         <div class="left-section space-y-6">
             <div class="bg-white shadow rounded-lg p-6">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">User Feedback</h2>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">User Schedule</h2>
 
                 <?php if (!empty($feedbacks)) { ?>
                     <!-- Table for Large Screens (3xl and above) -->

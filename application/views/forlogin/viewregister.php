@@ -64,9 +64,9 @@
 <body class="flex items-center justify-center min-h-screen bg-gray-900 bg-opacity-60">
 
     <div class="w-full max-w-md p-6 bg-white bg-opacity-20 backdrop-blur-md rounded-lg shadow-lg absolute ml-[30px]">
-        <div class="flex justify-center">
+        <!-- <div class="flex justify-center">
             <img src="<?= base_url('/design/images/SPClogo.png') ?>" alt="SPC Logo" class="w-20 h-20 rounded-lg">
-        </div>
+        </div> -->
         <h2 class="text-2xl font-bold text-center text-green-900 uppercase text-sm font-bold mt-4">REGISTER</h2>
 
         <form method="post" action="<?= base_url('auth/register'); ?>" class="mt-6" id="registerForm">

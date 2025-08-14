@@ -122,7 +122,7 @@
 
                     <div>
                         <label
-                            class="darkmode_green block px-2 text-left text-sm font-semibold text-black uppercase tracking-wider">Points</label>
+                            class="darkmode_green block px-2 text-left text-sm font-semibold text-black uppercase tracking-wider">Amount</label>
                         <input type="number" name="points" required
                             class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300">
                     </div>
@@ -224,7 +224,7 @@
                                 </div>
                                 <p class="text-gray-600 text-sm"><span class="font-semibold">Category:</span>
                                     <?= htmlspecialchars($type['category']) ?></p>
-                                <p class="text-gray-600 text-sm"><span class="font-semibold">Points:</span>
+                                <p class="text-gray-600 text-sm"><span class="font-semibold">Amount:</span>
                                     <?= htmlspecialchars($type['points']) ?></p>
                                 <div class="mt-3 space-x-2">
                                     <button onclick="updateFileTypeStatus(<?= $type['id'] ?>, 'approved')"
@@ -277,7 +277,7 @@
                                         Category</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Points</th>
+                                        Amount</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         Actions</th>
@@ -333,7 +333,7 @@
                                 </div>
                                 <p class="text-gray-600 text-sm"><span class="font-semibold">Category:</span>
                                     <?= htmlspecialchars($type['category']) ?></p>
-                                <p class="text-gray-600 text-sm"><span class="font-semibold">Points:</span>
+                                <p class="text-gray-600 text-sm"><span class="font-semibold">Amount:</span>
                                     <?= htmlspecialchars($type['points']) ?></p>
                                 <div class="mt-3">
                                     <button onclick="updateFileTypeStatus(<?= $type['id'] ?>, 'remove_from_approve')"

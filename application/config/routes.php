@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['userdashboard'] = 'conAdmin/userDashboard';  // When 'userdashboard' is accessed, it calls userDashboard method in conAdmin
 $route['requirementstatus/deleteRequirement_statusNotification/(:num)'] = 'conAdmin/deleteRequirement_statusNotification/$1';
 $route['requirementstatus/deleteAllRequirement_statusNotifications'] = 'conAdmin/deleteAllRequirement_statusNotifications';
+$route['reset-password/(:any)'] = 'adminHomepage/reset_password/$1';
 
 
 

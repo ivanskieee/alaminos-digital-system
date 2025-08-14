@@ -9,78 +9,84 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 font-sans m1">
     <div class="flex flex-wrap">
 
         <!-- Pending Users Section -->
-        <div class=" flex-1 m-2 h-screen overflow-y-auto bg-white shadow-lg rounded-lg p-6 mb-2">
-            <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">Pending Users</h2>
-            <div class=" space-y-4 ">
-                <?php foreach ($pending_users as $user): ?>
-                    <div
-                        class="user-approval flex flex-wrap items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
-                        <div class="flex-1 min-w-0">
-                            <h3 class="text-lg font-medium text-gray-800 truncate"><?= $user['username'] ?></h3>
-                            <p class="text-sm text-gray-600 truncate"><?= $user['email'] ?></p>
+        <div class="w-full lg:w-1/3 p-2">
+            <div class="h-screen overflow-y-auto bg-white shadow-lg rounded-lg p-6 mb-2">
+                <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">Pending Users</h2>
+                <div class="space-y-4">
+                    <?php foreach ($pending_users as $user): ?>
+                        <div
+                            class="user-approval flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border rounded-lg hover:shadow-md transition-shadow space-y-2 sm:space-y-0 sm:space-x-4">
+                            <!-- User Info -->
+                            <div class="min-w-0 flex-1">
+                                <h3 class="text-lg font-medium text-gray-800 truncate"><?= $user['username'] ?></h3>
+                                <p class="text-sm text-gray-600 truncate"><?= $user['email'] ?></p>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="flex flex-wrap justify-end gap-2">
+                                <!-- Example buttons for Pending users -->
+                                <button onclick="approveUser(<?= $user['id'] ?>)"
+                                    class="px-4 py-2 font-medium bg-green-100 text-green-800 text-sm rounded-lg hover:bg-green-200 transition">Approve</button>
+                                <button onclick="rejectUser(<?= $user['id'] ?>)"
+                                    class="px-4 py-2 font-medium bg-red-100 text-red-800 text-sm rounded-lg hover:bg-red-200 transition">Reject</button>
+                            </div>
                         </div>
-                        <div class="flex space-x-2 mt-2 sm:mt-0">
-                            <button onclick="approveUser(<?= $user['id'] ?>)"
-                                class="px-4 py-2 font-medium bg-green-100 text-green-800 text-sm rounded-lg hover:bg-green-200 transition">Approve</button>
-                            <button onclick="rejectUser(<?= $user['id'] ?>)"
-                                class="px-4 py-2 font-medium bg-red-100 text-red-800 text-sm rounded-lg hover:bg-red-200 transition">Reject</button>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
 
-
         <!-- Approved Users Section -->
-        <div class="flex-1 m-2 h-screen overflow-y-auto bg-white shadow-lg rounded-lg">
-            <div class="sticky top-0 bg-white z-10 p-5 flex justify-center">
-
-            <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4  ">ACTIVE ACCOUNTS</h2>
-            </div>
-
-            <div class="space-y-4 ">
-
-                <?php foreach ($approved_users as $user): ?>
-                    <div
-                        class="user-approval flex flex-wrap items-center p-4 border rounded-lg hover:shadow-md transition-shadow">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-medium text-gray-800 truncate"><?= $user['username'] ?></h3>
-                            <p class="text-sm text-gray-600 truncate"><?= $user['email'] ?></p>
+        <div class="w-full lg:w-1/3 p-2">
+            <div class="h-screen overflow-y-auto bg-white shadow-lg rounded-lg">
+                <div class="sticky top-0 bg-white z-10 p-5 flex justify-center">
+                    <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">Active Accounts</h2>
+                </div>
+                <div class="space-y-4">
+                    <?php foreach ($approved_users as $user): ?>
+                        <div
+                            class="user-approval flex flex-wrap items-center p-4 border rounded-lg hover:shadow-md transition-shadow">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-medium text-gray-800 truncate"><?= $user['username'] ?></h3>
+                                <p class="text-sm text-gray-600 truncate"><?= $user['email'] ?></p>
+                            </div>
+                            <button onclick="moveToPending(<?= $user['id'] ?>)"
+                                class="flex-1 px-4 py-2 bg-yellow-100 text-yellow-800 text-sm rounded-lg hover:bg-yellow-200 font-medium transition">Deactivate
+                                Account</button>
                         </div>
-                        <button onclick="moveToPending(<?= $user['id'] ?>)"
-                            class="flex-1 px-4 py-2 bg-yellow-100 text-yellow-800 text-sm rounded-lg hover:bg-yellow-200 font-medium transition">DEACTIVATE
-                            ACCOUNT</button>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
 
         <!-- Rejected Users Section -->
-        <div class="flex-1 m-2 h-screen overflow-y-auto bg-white shadow-lg rounded-lg p-6 mb-2">
-            <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">DEACTIVE ACCOUNTS</h2>
-            <div class="space-y-4 ">
-
-                <?php foreach ($rejected_users as $user): ?>
-                    <div
-                        class="user-approval flex flex-wrap items-center p-4 border rounded-lg hover:shadow-md transition-shadow">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-medium text-gray-800 truncate"><?= $user['username'] ?></h3>
-                            <p class="text-sm text-gray-600 truncate"><?= $user['email'] ?></p>
+        <div class="w-full lg:w-1/3 p-2">
+            <div class="h-screen overflow-y-auto bg-white shadow-lg rounded-lg p-6 mb-2">
+                <h2 class="text-xl tracking-wider font-semibold text-gray-700 uppercase mb-4">Deactivated Accounts</h2>
+                <div class="space-y-4">
+                    <?php foreach ($rejected_users as $user): ?>
+                        <div
+                            class="user-approval flex flex-wrap items-center p-4 border rounded-lg hover:shadow-md transition-shadow">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-medium text-gray-800 truncate"><?= $user['username'] ?></h3>
+                                <p class="text-sm text-gray-600 truncate"><?= $user['email'] ?></p>
+                            </div>
+                            <button onclick="moveToPending(<?= $user['id'] ?>)"
+                                class="px-4 py-2 bg-teal-100 text-teal-800 text-sm rounded-lg hover:bg-teal-200 font-medium transition">Move
+                                to Pending</button>
                         </div>
-                        <button onclick="moveToPending(<?= $user['id'] ?>)"
-                            class="px-4 py-2 bg-teal-100 text-teal-800 text-sm rounded-lg hover:bg-teal-200 font-medium transition">MOVE
-                            TO PENDING</button>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
 
     </div>
-    </div>
+
 
 
     <!-- Loading Overlay -->

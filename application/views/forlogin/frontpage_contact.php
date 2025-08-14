@@ -57,7 +57,7 @@
     <header class="bg-custom-button text-white py-2 shadow-md">
         <div class="container mx-auto px-4 flex justify-between items-center">
             <div>
-                <h1 class="text-3xl font-bold">Contact Us</h1>
+                <h1 class="text-3xl font-bold">Make your schedule now</h1>
                 <p class="mt-2 text-gray-200">We're here to help! Reach out to us anytime.</p>
             </div>
             <nav>
@@ -90,9 +90,9 @@
 
         <!-- Contact Form -->
         <div id="contactForm" class="absolute top-10 right-10 bg-white rounded-lg p-8 shadow-xl w-1/3">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Get in Touch</h2>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Sched</h2>
             <p class="text-gray-600 mb-6">
-                Have questions or feedback? Drop us a message, and we'll get back to you as soon as possible.
+                Make your schedule, admin will see it and give you a response.
             </p>
             <form action="<?php echo base_url('auth/contact_submit'); ?>" method="POST">
                 <div class="mb-4">

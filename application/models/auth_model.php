@@ -25,6 +25,46 @@ class Auth_model extends CI_Model
     // In the model
 
 
+    public function get_user_by_email($email)
+    {
+        return $this->db->get_where('users', ['email' => $email])->row();
+    }
+
+    public function save_reset_token($user_id, $token)
+    {
+        $expiry_time = date('Y-m-d H:i:s', strtotime('+1 hour')); // Token expires in 1 hour
+        $data = [
+            'reset_token' => $token,
+            'reset_token_expiry' => $expiry_time
+        ];
+        $this->db->where('id', $user_id);
+        $this->db->update('users', $data);
+    }
+
+    public function get_user_by_token($token)
+    {
+        // Query to fetch user data by token
+        return $this->db->select('id, reset_token, reset_token_expiry')
+            ->where('reset_token', $token)
+            ->get('users')
+            ->row();
+    }
+
+
+    public function invalidate_reset_token($user_id)
+    {
+        $this->db->where('id', $user_id)->update('users', ['reset_token' => null, 'reset_token_expiry' => null]);
+    }
+
+
+    public function update_password($user_id, $password)
+    {
+        $this->db->where('id', $user_id);
+        $this->db->update('users', [
+            'password' => $password,
+            'reset_token' => null // Invalidate token
+        ]);
+    }
 
 
     public function getAdminByEmail($email)

@@ -21,7 +21,7 @@
                     class="flex flex-col items-center justify-center flex-grow transition-all duration-300 ">
                     <!-- Profile Image -->
                     <img id="image-<?= $user['id']; ?>"
-                        class="w-screen h-96  rounded-t-lg rounded-b-none  transition-all duration-300 mb-1.5"
+                        class=" min-w-96 h-96  rounded-t-lg rounded-b-none  transition-all duration-300 mb-1.5"
                         src="<?= base_url($user['uploaded_profile_image'] ?? 'uploads/default_profiles/default_profile.avif'); ?>"
                         alt="Profile Image">
 
