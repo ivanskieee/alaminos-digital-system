@@ -205,7 +205,6 @@
     </section>
 
 
-
     <!-- Testimonials Section -->
     <section id="testimonials"
         class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center px-6 py-12 fade-in">
