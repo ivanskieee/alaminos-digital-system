@@ -28,7 +28,6 @@
     #notificationDropdown {
         width: 48rem;
         height: 500px;
-        /* Doubled the width */
     }
 </style>
 
