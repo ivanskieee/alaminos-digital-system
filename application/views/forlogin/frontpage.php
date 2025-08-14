@@ -204,9 +204,6 @@
         </div>
     </section>
 
-
-
-    <!-- Testimonials Section -->
     <section id="testimonials"
         class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center px-6 py-12 fade-in">
         <h2 class="text-4xl font-extrabold mb-8 text-teal-400">Recent Schedules</h2>
